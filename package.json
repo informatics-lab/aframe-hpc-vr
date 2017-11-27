@@ -1,0 +1,38 @@
+{
+  "name": "aframe-hpc-tour",
+  "description": "Met Office HPC VR Tour",
+  "version": "0.1.0",
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --open",
+    "deploy": "ghpages",
+    "ghpages": "ghpages"
+  },
+  "devDependencies": {
+    "ghpages": "0.0.3",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.1.0",
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "keywords": [
+    "aframe",
+    "webvr",
+    "vr"
+  ],
+  "dependencies": {
+    "aframe": "^0.7.1",
+    "aframe-animation-component": "^3.2.5",
+    "animejs": "^2.2.0",
+    "three": "^0.88.0"
+  }
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Met Office HPC VR Tour">
+
+    <title>Met Office || HPC VR Tour</title>
+</head>
+<body>
+<!--fog-->
+<a-scene vr-mode-ui="enabled: true;" header stats>
+
+    <a-assets>
+        <img id="floor" src="assets/textures/neon-grid.png"/>
+        <!-- clickable image link template to be reused. -->
+    </a-assets>
+
+    <a-camera id="camera" active="true" reverse-mouse-drag="true">
+        <!--hud-->
+        <a-entity id="gaze-controls" visible="false">
+            <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="black" theta-length="360" theta-start="90">
+            </a-ring>
+            <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="blue" theta-length="0" theta-start="90"
+                    shader="flat"
+                    animate__showCursor-theta-length="component: theta-length; duration:500; triggerEvent:showMenu; type:number; from:0; to:360; easing:linear;"
+                    animate__hideCursor-theta-length="component: theta-length; duration:500; triggerEvent:hideMenu; type:number; from:360; to:0; easing:linear;"
+            ></a-ring>
+        </a-entity>
+    </a-camera>
+
+
+    <a-entity id="mouse-controls" cursor="rayOrigin:mouse;">
+        <a-plane width="0.2" height="0.2" color="red" position="0 0 0.01"></a-plane>
+    </a-entity>
+
+    <!--menu-->
+    <a-plane id="menu" menu visible="false" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
+             animate__showMenu-position="component: position; duration:1000; triggerEvent:showMenu; from:0 0 0;"
+             animate__hideMenu-position="component: position; duration:1000; triggerEvent:hideMenu; to:0 0 0;"
+    >
+        <!--menu content here-->
+        <a-plane width="0.2" height="0.2" color="red" position="0 0 0.01"></a-plane>
+    </a-plane>
+
+    <a-plane id="floor" src="#floor" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100">
+    </a-plane>
+
+    <a-sky id="sky" color="#2A2A2A"></a-sky>
+
+</a-scene>
+</body>
+</html>

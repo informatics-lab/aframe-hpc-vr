@@ -3,7 +3,9 @@
 module.exports = AFRAME.registerComponent('event-emit', {
     schema: {
         triggerEvent: {type: 'string', default: ''},
-        emitEvent:{type: 'string', default: ''}
+        emitEvent:{type: 'string', default: ''},
+        globalListener:{type: 'boolean', default: false},
+        globalEmitter:{type: 'boolean', default: false}
     },
 
     multiple: true,
@@ -11,8 +13,11 @@ module.exports = AFRAME.registerComponent('event-emit', {
     update: function () {
         const self = this;
 
-        self.el.sceneEl.addEventListener(self.data.triggerEvent, (e) => {
-            self.el.emit(emitEvent, null, true);
+        self.listener = (self.data.globalListener) ? self.el.sceneEl : self.el;
+        self.emitter = (self.data.globalEmitter) ? self.el.sceneEl : self.el;
+
+        self.listener.addEventListener(self.data.triggerEvent, (e) => {
+            self.emitter.emit(self.data.emitEvent);
         });
     }
 

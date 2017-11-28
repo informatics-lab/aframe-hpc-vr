@@ -4,11 +4,13 @@
 
 module.exports = AFRAME.registerComponent('test', {
     init: function () {
-        let self = this;
+        const self = this;
         console.log('testing');
 
-        self.el.addEventListener("showMenu", () => {
-            console.log("showMenu!!!!");
-        })
+        self.el.sceneEl.addEventListener("toggleMenu", () => {
+            console.log("toggle");
+        });
+
+
     }
 });

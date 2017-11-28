@@ -4,50 +4,119 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="Met Office HPC VR Tour">
 
     <title>Met Office || HPC VR Tour</title>
 </head>
 <body>
-<!--fog-->
-<a-scene vr-mode-ui="enabled: true;" header stats>
+<a-scene vr-mode-ui="enabled: true;" header stats menu-controller>
 
+    <!--
+    All our scene assets
+    -->
     <a-assets>
         <img id="floor" src="assets/textures/neon-grid.png"/>
-        <!-- clickable image link template to be reused. -->
+        <img id="floor2" src="assets/textures/grid.png"/>
+        <img id="dog" src="assets/videos/1.jpg"/>
+        <img id="panda" src="assets/videos/1.gif"/>
+        <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted src="assets/videos/greeting-background.mp4" />
+        <video id="video" webkit-playsinline playsinline autoplay loop muted src="assets/videos/1.mp4" />
+        <!--<video id="1" webkit-playsinline playsinline loop="true" src="assets/videos/1.mp4"></video>-->
+        <!--<video id="2" webkit-playsinline playsinline loop="true" src="assets/videos/2.mp4"></video>-->
     </a-assets>
 
+    <!--
+    Mouse Controls
+    controls for non-VR mode
+    -->
+    <a-entity id="mouse-controls"
+              raycaster="objects: .clickable;"
+              cursor="rayOrigin:mouse; fuse:false;"
+              event-emit__shaddow-enter-vr="triggerEvent:enter-vr; emitEvent:entervr; globalListener:true;"
+              event-emit__shaddow-exit-vr="triggerEvent:exit-vr; emitEvent:exitvr; globalListener:true;"
+              enable-disable="disableEvents:entervr; enableEvents:exitvr; toggleProps:raycaster,cursor"
+    ></a-entity>
+
+    <!--
+    Grid floor for greeting scene
+    must be above camera to avoid transparency issues.
+    -->
+    <a-plane id="floor" src="#floor2" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100" material="transparent:true;"></a-plane>
+
+
+    <!--
+    Camera for the scene
+    entity defined here so that hud elements can be nested within it thus attaching them to its immediate view.
+    -->
     <a-camera id="camera" active="true" reverse-mouse-drag="true">
-        <!--hud-->
-        <a-entity id="gaze-controls" visible="false">
+        <!--
+        Gaze Controls
+        -->
+        <a-entity id="gaze-controls"
+                  visible="false"
+                  cursor="fuse:true; fuseTimeout:1000;"
+                  event-emit__shaddow-enter-vr="triggerEvent:enter-vr; emitEvent:entervr; globalListener:true;"
+                  event-emit__shaddow-exit-vr="triggerEvent:exit-vr; emitEvent:exitvr; globalListener:true;"
+                  event-set__hide="_event: exitvr; visible: false;"
+                  event-set__show="_event: entervr; visible: true;"
+                  enable-disable="disableEvents:exitvr; enableEvents:entervr; toggleProps:cursor; enabled:false"
+        >
             <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="black" theta-length="360" theta-start="90">
             </a-ring>
             <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="blue" theta-length="0" theta-start="90"
                     shader="flat"
-                    animate__showCursor-theta-length="component: theta-length; duration:500; triggerEvent:showMenu; type:number; from:0; to:360; easing:linear;"
+                    animate__showCursor-theta-length="component: theta-length; duration:1000; triggerEvent:fusing; type:number; from:0; to:360; easing:linear;"
                     animate__hideCursor-theta-length="component: theta-length; duration:500; triggerEvent:hideMenu; type:number; from:360; to:0; easing:linear;"
             ></a-ring>
         </a-entity>
+
+
+
+        <!--
+        Greeting text
+        -->
+        <a-entity material="shader: chromakey; src: #greeting-background; color: 0.0 0.0 0.0;"
+                  geometry="primitive: plane; width:0.08; height:0.04;"
+                  position="-0.05 -0.05 -0.1"
+        ></a-entity>
+
+        <!--
+        Desktop menu-toggle button
+        disappears in VR mode
+        -->
+        <a-plane id="menu-toggle" visible="true" width="0.01" height="0.01" position="-0.07 -0.07 -0.099"
+                 class="clickable"
+                 event-emit__shaddow_enter-vr="triggerEvent: enter-vr; emitEvent: entervr; globalListener: true;"
+                 event-emit__shaddow-exit-vr="triggerEvent: exit-vr; emitEvent: exitvr; globalListener: true;"
+                 event-set__hide="_event: entervr; visible: false;"
+                 event-set__show="_event: exitvr; visible: true;"
+                 event-emit="triggerEvent: click; emitEvent: toggleMenu; globalEmitter: true;"
+                 material="shader:flat; src: #dog"
+        ></a-plane>
+
+
     </a-camera>
 
 
-    <a-entity id="mouse-controls" cursor="rayOrigin:mouse;">
-        <a-plane width="0.2" height="0.2" color="red" position="0 0 0.01"></a-plane>
-    </a-entity>
-
-    <!--menu-->
-    <a-plane id="menu" menu visible="false" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
-             animate__showMenu-position="component: position; duration:1000; triggerEvent:showMenu; from:0 0 0;"
-             animate__hideMenu-position="component: position; duration:1000; triggerEvent:hideMenu; to:0 0 0;"
+    <!--
+    Menu
+    -->
+    <a-plane menu id="menu" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
+             animate__showMenu-position="component: position; duration:1000; triggerEvents:showMenu; from:0 0 0;"
+             animate__hideMenu-position="component: position; duration:1000; triggerEvents:hideMenu; to:0 0 0;"
     >
         <!--menu content here-->
-        <a-plane width="0.2" height="0.2" color="red" position="0 0 0.01"></a-plane>
+        <a-plane width="0.2" height="0.2" position="0 0 0.01"
+                 class="clickable"
+                 event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                 event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                 material="shader:flat; src: #dog"
+        ></a-plane>
     </a-plane>
 
-    <a-plane id="floor" src="#floor" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100">
-    </a-plane>
 
-    <a-sky id="sky" color="#2A2A2A"></a-sky>
+    <a-videosphere id="sky" src="#video"></a-videosphere>
 
 </a-scene>
 </body>

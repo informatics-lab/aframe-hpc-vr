@@ -2,7 +2,10 @@
 import anime from 'animejs';
 
 
+//TODO enable interruption of animations
+
 // allows animation of vec3's
+let i = 0;
 module.exports = AFRAME.registerComponent('animate', {
     schema: {
         delay: {type:'int', default:0},
@@ -13,7 +16,7 @@ module.exports = AFRAME.registerComponent('animate', {
         to: {default: ''},
         type: {type: 'string', default: 'vec3'},
         component: {type: 'string', default: ''},
-        triggerEvent: {type: 'string', default: ''},
+        triggerEvents: {type: 'array'},
     },
 
     multiple: true,
@@ -31,7 +34,7 @@ module.exports = AFRAME.registerComponent('animate', {
         let setConfig = null;
 
         // from / to empty check
-        if(self.data.from === '' || self.data.to === ''){
+        if(!self.data.from || self.data.from === '' || !self.data.to || self.data.to === ''){
             return;
         }
 
@@ -48,7 +51,6 @@ module.exports = AFRAME.registerComponent('animate', {
                 self.data.from = self.toNumber(self.data.from);
                 self.data.to = self.toNumber(self.data.to);
                 if(!self.isNumberAnimationValid(self.data.from, self.data.to)) {
-                    console.log('exiting');
                     return;
                 }
                 setConfig = self.setNumberAnimationConfig;
@@ -61,7 +63,7 @@ module.exports = AFRAME.registerComponent('animate', {
 
         self.animating = false;
         self.component = self.data.component;
-        self.autoplay = (self.data.triggerEvent === '') ? true : false;
+        self.autoplay = (!self.data.triggerEvents || self.data.triggerEvents.length == 0 || self.data.triggerEvents === '') ? true : false;
 
         self.config = {
             autoplay: self.autoplay,
@@ -70,17 +72,25 @@ module.exports = AFRAME.registerComponent('animate', {
             direction: self.data.direction,
             easing: self.data.easing,
             begin: function(){self.animationStart.apply(self, arguments)},
-            update: function(){self.animationUpdate.apply(self, arguments)},
-            complete: function(){self.animationEnd.apply(self, arguments);}
+            complete: function(){self.animationEnd.apply(self, arguments)}
         };
 
-        self.config = setConfig(self.config, self.from, self.to);
+        self.config = setConfig(self, self.config, self.from, self.to);
 
         self.animation = new anime(self.config);
 
         if(!self.autoplay) {
-            self.el.sceneEl.addEventListener(self.data.triggerEvent, () => {
-                self.animation.restart(); //use restart so same animation can happen multiple times
+
+            const triggerAnimation = () => {
+              self.animation.restart(); //use restart
+            };
+
+            self.data.triggerEvents.map((e) => {
+                self.el.removeEventListener(e, triggerAnimation);
+            });
+
+            self.data.triggerEvents.map((e) => {
+                self.el.addEventListener(e, triggerAnimation);
             });
         }
 
@@ -106,15 +116,21 @@ module.exports = AFRAME.registerComponent('animate', {
     },
 
     isVec3AnimationValid: function(from, to) {
-        return !(isNaN(from.x) || isNaN(to.x) || (JSON.stringify(from) === JSON.stringify(to)));
+        return !(isNaN(from.x) || isNaN(to.x) ||
+            isNaN(from.y) || isNaN(to.y) ||
+            isNaN(from.z) || isNaN(to.z) ||
+            (JSON.stringify(from) === JSON.stringify(to)));
     },
 
-    setVec3AnimationConfig: function(config, from, to) {
+    setVec3AnimationConfig: function(self, config, from, to) {
         let conf = {
             targets: from,
             x: to.x,
             y: to.y,
             z: to.z,
+            update: function(anim) {
+                AFRAME.utils.entity.setComponentProperty(self.el, self.component, anim.animatables[0].target);
+            }
         };
         return Object.assign(config,conf);
     },
@@ -123,11 +139,14 @@ module.exports = AFRAME.registerComponent('animate', {
         return !(isNaN(from) || isNaN(to) || (from === to));
     },
 
-    setNumberAnimationConfig: function(config, from, to) {
+    setNumberAnimationConfig: function(self, config, from, to) {
         let variable = {x: from};
         let conf = {
             targets: variable,
             x:to,
+            update: function(anim) {
+                AFRAME.utils.entity.setComponentProperty(self.el, self.component, anim.animatables[0].target.x);
+            }
         };
         let obj = Object.assign(config,conf);
         return obj;
@@ -140,15 +159,6 @@ module.exports = AFRAME.registerComponent('animate', {
             self.el.emit('animationStart');
             self.el.emit(self.id + 'Start');
         }
-    },
-
-    animationUpdate(anim) {
-        let self = this;
-        let value = anim.animatables[0].target;
-        if(self.data.type === 'number') {
-            value = value.x;
-        }
-        AFRAME.utils.entity.setComponentProperty(self.el, self.component, value);
     },
 
     animationEnd: function () {

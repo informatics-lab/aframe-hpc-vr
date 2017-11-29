@@ -39,15 +39,6 @@ module.exports = AFRAME.registerComponent('menu', {
             self.open = !self.open;
         });
 
-
-        self.el.addEventListener('showMenu-positionStart', (e) => {
-            self.el.setAttribute('visible', true);
-        });
-
-        self.el.addEventListener('hideMenu-positionEnd', (e) => {
-            self.el.setAttribute('visible', false);
-        });
-
     },
 
     tick : function() {

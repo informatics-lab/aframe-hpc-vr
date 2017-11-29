@@ -10,7 +10,7 @@
     <title>Met Office || HPC VR Tour</title>
 </head>
 <body>
-<a-scene vr-mode-ui="enabled: true;" header stats menu-controller>
+<a-scene vr-mode-ui="enabled: true;" header menu-controller>
 
     <!--
     All our scene assets
@@ -20,8 +20,9 @@
         <img id="floor2" src="assets/textures/grid.png"/>
         <img id="dog" src="assets/videos/1.jpg"/>
         <img id="panda" src="assets/videos/1.gif"/>
-        <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted src="assets/videos/greeting-background.mp4" />
-        <video id="video" webkit-playsinline playsinline autoplay loop muted src="assets/videos/1.mp4" />
+        <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
+               src="assets/videos/greeting-background.mp4"/>
+        <video id="video" webkit-playsinline playsinline autoplay loop muted src="assets/videos/1.mp4"/>
         <!--<video id="1" webkit-playsinline playsinline loop="true" src="assets/videos/1.mp4"></video>-->
         <!--<video id="2" webkit-playsinline playsinline loop="true" src="assets/videos/2.mp4"></video>-->
     </a-assets>
@@ -33,8 +34,8 @@
     <a-entity id="mouse-controls"
               raycaster="objects: .clickable;"
               cursor="rayOrigin:mouse; fuse:false;"
-              event-emit__shaddow-enter-vr="triggerEvent:enter-vr; emitEvent:entervr; globalListener:true;"
-              event-emit__shaddow-exit-vr="triggerEvent:exit-vr; emitEvent:exitvr; globalListener:true;"
+              event-emit__shaddow-enter-vr="triggerEvents:enter-vr; emitEvent:entervr; globalListener:true;"
+              event-emit__shaddow-exit-vr="triggerEvents:exit-vr; emitEvent:exitvr; globalListener:true;"
               enable-disable="disableEvents:entervr; enableEvents:exitvr; toggleProps:raycaster,cursor"
     ></a-entity>
 
@@ -42,7 +43,8 @@
     Grid floor for greeting scene
     must be above camera to avoid transparency issues.
     -->
-    <a-plane id="floor" src="#floor2" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100" material="transparent:true;"></a-plane>
+    <a-plane id="floor" src="#floor2" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100"
+             material="transparent:true;"></a-plane>
 
 
     <!--
@@ -55,22 +57,24 @@
         -->
         <a-entity id="gaze-controls"
                   visible="false"
+                  raycaster="objects: .clickable;"
                   cursor="fuse:true; fuseTimeout:1000;"
-                  event-emit__shaddow-enter-vr="triggerEvent:enter-vr; emitEvent:entervr; globalListener:true;"
-                  event-emit__shaddow-exit-vr="triggerEvent:exit-vr; emitEvent:exitvr; globalListener:true;"
+                  event-emit__shaddow-enter-vr="triggerEvents:enter-vr; emitEvent:entervr; globalListener:true;"
+                  event-emit__shaddow-exit-vr="triggerEvents:exit-vr; emitEvent:exitvr; globalListener:true;"
                   event-set__hide="_event: exitvr; visible: false;"
                   event-set__show="_event: entervr; visible: true;"
-                  enable-disable="disableEvents:exitvr; enableEvents:entervr; toggleProps:cursor; enabled:false"
+                  enable-disable="disableEvents:exitvr; enableEvents:entervr; toggleProps:cursor,raycaster; enabled:false"
         >
             <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="black" theta-length="360" theta-start="90">
             </a-ring>
             <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="blue" theta-length="0" theta-start="90"
                     shader="flat"
-                    animate__showCursor-theta-length="component: theta-length; duration:1000; triggerEvent:fusing; type:number; from:0; to:360; easing:linear;"
-                    animate__hideCursor-theta-length="component: theta-length; duration:500; triggerEvent:hideMenu; type:number; from:360; to:0; easing:linear;"
+                    event-emit__shaddow-gazefusing="triggerEvents:gazefusing; emitEvent:gazeFusing; globalListener:true;"
+                    event-emit__shaddow-gazeend="triggerEvents:gazeend; emitEvent:gazeEnd; globalListener:true;"
+                    animate__gazefusing="component: theta-length; duration:1000; triggerEvents:gazeFusing; interruptEvents:gazeEnd; type:number; from:0; to:360; easing:linear;"
+                    event-set__gazeend="_event:gazeEnd; theta-length:0;"
             ></a-ring>
         </a-entity>
-
 
 
         <!--
@@ -87,11 +91,11 @@
         -->
         <a-plane id="menu-toggle" visible="true" width="0.01" height="0.01" position="-0.07 -0.07 -0.099"
                  class="clickable"
-                 event-emit__shaddow_enter-vr="triggerEvent: enter-vr; emitEvent: entervr; globalListener: true;"
-                 event-emit__shaddow-exit-vr="triggerEvent: exit-vr; emitEvent: exitvr; globalListener: true;"
+                 event-emit__shaddow_enter-vr="triggerEvents: enter-vr; emitEvent: entervr; globalListener: true;"
+                 event-emit__shaddow-exit-vr="triggerEvents: exit-vr; emitEvent: exitvr; globalListener: true;"
                  event-set__hide="_event: entervr; visible: false;"
                  event-set__show="_event: exitvr; visible: true;"
-                 event-emit="triggerEvent: click; emitEvent: toggleMenu; globalEmitter: true;"
+                 event-emit="triggerEvents: click; emitEvent: toggleMenu; globalEmitter: true;"
                  material="shader:flat; src: #dog"
         ></a-plane>
 
@@ -102,21 +106,41 @@
     <!--
     Menu
     -->
-    <a-plane menu id="menu" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
+    <a-plane menu id="menu" visible="false" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
              animate__showMenu-position="component: position; duration:1000; triggerEvents:showMenu; from:0 0 0;"
              animate__hideMenu-position="component: position; duration:1000; triggerEvents:hideMenu; to:0 0 0;"
+             event-set__show="_event:showMenu-positionStart; visible:true;"
+             event-set__hide="_event:hideMenu-positionEnd; visible:false;"
     >
         <!--menu content here-->
-        <a-plane width="0.2" height="0.2" position="0 0 0.01"
-                 class="clickable"
-                 event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
-                 event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
-                 material="shader:flat; src: #dog"
-        ></a-plane>
+        <a-entity layout="type: line; margin: 1.0" position="0 0 0.01">
+
+            <a-plane width="0.2"
+                     position="2 0 0"
+                     height="0.2"
+                     class="clickable"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                     event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
+                     event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
+                     material="shader:flat; src: #dog"
+            ></a-plane>
+
+            <a-plane width="0.2" height="0.2"
+                     class="clickable"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                     event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
+                     event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
+                     material="shader:flat; src: #dog"
+            ></a-plane>
+
+        </a-entity>
+
     </a-plane>
 
 
-    <a-videosphere id="sky" src="#video"></a-videosphere>
+    <a-videosphere id="sky" src="#greeting-background"></a-videosphere>
 
 </a-scene>
 </body>

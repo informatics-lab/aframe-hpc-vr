@@ -17,6 +17,10 @@ import 'aframe-gif-shader';
 // see: https://github.com/nikolaiwarner/aframe-chromakey-material
 import 'aframe-chromakey-material';
 
+// Provides layout support in aframe
+// see: https://github.com/ngokevin/kframe/tree/master/components/layout/
+import 'aframe-layout-component';
+
 import './Test';
 import './Animate';
 import './CursorListener';

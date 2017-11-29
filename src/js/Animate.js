@@ -5,7 +5,6 @@ import anime from 'animejs';
 //TODO enable interruption of animations
 
 // allows animation of vec3's
-let i = 0;
 module.exports = AFRAME.registerComponent('animate', {
     schema: {
         delay: {type:'int', default:0},
@@ -17,6 +16,7 @@ module.exports = AFRAME.registerComponent('animate', {
         type: {type: 'string', default: 'vec3'},
         component: {type: 'string', default: ''},
         triggerEvents: {type: 'array'},
+        interruptEvents: {type: 'array'}
     },
 
     multiple: true,
@@ -93,6 +93,20 @@ module.exports = AFRAME.registerComponent('animate', {
                 self.el.addEventListener(e, triggerAnimation);
             });
         }
+
+        const interrupt = () => {
+            console.log("interrupt");
+            self.animation.pause();
+            self.el.emit(self.id+'Interrupt');
+        };
+
+        self.data.interruptEvents.map((e) => {
+            self.el.removeEventListener(e, interrupt);
+        });
+
+        self.data.interruptEvents.map((e) => {
+           self.el.addEventListener(e, interrupt)
+        });
 
     },
 

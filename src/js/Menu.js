@@ -20,7 +20,7 @@ module.exports = AFRAME.registerComponent('menu', {
 
                 // get position that is directly infront of the camera at user height (y = 1.6)
                 let pos = self.camera.getWorldDirection();
-                pos.setZ(pos.negate().z);
+                pos.setZ(pos.negate().z - 0.5);
                 pos.setY(self.camera.position.y);
                 pos = {x: pos.x, y: pos.y, z: pos.z};
 

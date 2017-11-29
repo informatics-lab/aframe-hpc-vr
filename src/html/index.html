@@ -59,16 +59,18 @@
                   visible="false"
                   raycaster="objects: .clickable;"
                   cursor="fuse:true; fuseTimeout:1000;"
+                  position="0 0 -1"
+                  scale="0.04 0.04 0.04"
                   event-emit__shaddow-enter-vr="triggerEvents:enter-vr; emitEvent:entervr; globalListener:true;"
                   event-emit__shaddow-exit-vr="triggerEvents:exit-vr; emitEvent:exitvr; globalListener:true;"
                   event-set__hide="_event: exitvr; visible: false;"
                   event-set__show="_event: entervr; visible: true;"
                   enable-disable="disableEvents:exitvr; enableEvents:entervr; toggleProps:cursor,raycaster; enabled:false"
         >
-            <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="black" theta-length="360" theta-start="90">
+            <a-ring color="#2A2A2A" theta-length="360" theta-start="90">
             </a-ring>
-            <a-ring position="0 0 -0.1" scale="0.004 0.004 0.004" color="blue" theta-length="0" theta-start="90"
-                    shader="flat"
+            <a-ring theta-length="0" theta-start="90"
+                    material="shader:standard; emissive:#39C; emissiveIntensity:3; color:blue;"
                     event-emit__shaddow-gazefusing="triggerEvents:gazefusing; emitEvent:gazeFusing; globalListener:true;"
                     event-emit__shaddow-gazeend="triggerEvents:gazeend; emitEvent:gazeEnd; globalListener:true;"
                     animate__gazefusing="component: theta-length; duration:1000; triggerEvents:gazeFusing; interruptEvents:gazeEnd; type:number; from:0; to:360; easing:linear;"

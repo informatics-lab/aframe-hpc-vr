@@ -1,10 +1,6 @@
 'use strict';
 import anime from 'animejs';
 
-
-//TODO enable interruption of animations
-
-// allows animation of vec3's
 module.exports = AFRAME.registerComponent('animate', {
     schema: {
         delay: {type:'int', default:0},

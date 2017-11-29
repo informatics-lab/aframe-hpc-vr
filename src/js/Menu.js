@@ -12,10 +12,10 @@ module.exports = AFRAME.registerComponent('menu', {
         self.camera = document.querySelector('a-camera').object3D;
 
         self.el.sceneEl.addEventListener('toggleMenu', () => {
-            console.log('toggleMenu heard');
 
             if (self.open) {
-                self.el.emit('hideMenu', {}, true);
+                //trigger animation
+                self.el.emit('hideMenu');
             } else {
 
                 // get position that is directly infront of the camera at user height (y = 1.6)
@@ -31,9 +31,8 @@ module.exports = AFRAME.registerComponent('menu', {
                 AFRAME.utils.entity.setComponentProperty(self.el, "animate__showMenu-position", {to: pos});
                 AFRAME.utils.entity.setComponentProperty(self.el, "animate__hideMenu-position", {from: pos});
 
-
                 // trigger animation
-                self.el.emit('showMenu', {}, true);
+                self.el.emit('showMenu');
             }
 
             self.open = !self.open;

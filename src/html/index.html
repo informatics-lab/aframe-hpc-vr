@@ -16,16 +16,14 @@
     All our scene assets
     -->
     <a-assets>
-        <img id="floor" src="assets/textures/neon-grid.png"/>
-        <img id="floor2" src="assets/textures/grid.png"/>
-        <img id="dog" src="assets/videos/1.jpg"/>
-        <img id="cat" src="assets/videos/2.jpg"/>
-        <img id="panda" src="assets/videos/1.gif"/>
+        <img id="grid-floor" src="assets/textures/grid-floor.png"/>
+        <img id="dog" src="assets/images/dog.jpg"/>
+        <img id="cat" src="assets/images/cat.jpg"/>
         <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/greeting-background.mp4"/>
-        <video id="video" webkit-playsinline playsinline autoplay loop muted src="assets/videos/1.mp4"/>
-        <!--<video id="1" webkit-playsinline playsinline loop="true" src="assets/videos/1.mp4"></video>-->
-        <!--<video id="2" webkit-playsinline playsinline loop="true" src="assets/videos/2.mp4"></video>-->
+        <audio id="hover" src="assets/sounds/menu-item-hover.wav" />
+        <audio id="menu" src="assets/sounds/menu-open-close.wav" />
+        <audio id="click" src="assets/sounds/menu-item-click.wav" />
 
     </a-assets>
 
@@ -45,7 +43,7 @@
     Grid floor for greeting scene
     must be above camera to avoid transparency issues.
     -->
-    <a-plane id="floor" src="#floor2" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100"
+    <a-plane id="floor" src="#grid-floor" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100"
              material="transparent:true;"></a-plane>
 
 
@@ -93,6 +91,10 @@
         -->
         <a-plane id="menu-toggle" visible="true" width="0.01" height="0.01" position="-0.07 -0.07 -0.099"
                  class="clickable"
+                 event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                 event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                 sound__hover="src:#hover; on:mouseenter; volume:1;"
+                 sound__click="src:#click; on:click; volume:1;"
                  event-emit__shaddow_enter-vr="triggerEvents: enter-vr; emitEvent: entervr; globalListener: true;"
                  event-emit__shaddow-exit-vr="triggerEvents: exit-vr; emitEvent: exitvr; globalListener: true;"
                  event-set__hide="_event: entervr; visible: false;"
@@ -109,10 +111,12 @@
     Menu
     -->
     <a-plane menu id="menu" visible="false" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
-             animate__showMenu-position="component: position; duration:1000; triggerEvents:showMenu; from:0 0 0;"
-             animate__hideMenu-position="component: position; duration:1000; triggerEvents:hideMenu; to:0 0 0;"
+             animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
+             animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
              event-set__show="_event:showMenu-positionStart; visible:true;"
              event-set__hide="_event:hideMenu-positionEnd; visible:false;"
+             sound__hide="src:#menu; on:hideMenu; volume:1;"
+             sound__show="src:#menu; on:showMenu; volume:1;"
     >
         <!--
         menu content here
@@ -123,17 +127,34 @@
             <a-plane width="0.2"
                      height="0.2"
                      class="clickable"
-                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;" event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                     sound__hover="src:#hover; on:mouseenter; volume:1;"
+                     sound__click="src:#click; on:click; volume:1;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
                      material="shader:flat; src:#dog;"
             ></a-plane>
 
-        </a-entity>
+            <a-plane width="0.2"
+                     height="0.2"
+                     class="clickable"
+                     sound__hover="src:#hover; on:mouseenter; volume:1;"
+                     sound__click="src:#click; on:click; volume:1;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                     event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
+                     event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
+                     material="shader:flat; src:#cat;"
+            ></a-plane>
 
+        </a-entity>
     </a-plane>
 
 
+    <!--
+    Photosphere background
+    -->
     <a-videosphere id="sky" src="#greeting-background"></a-videosphere>
 
 </a-scene>

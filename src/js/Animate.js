@@ -95,7 +95,6 @@ module.exports = AFRAME.registerComponent('animate', {
         }
 
         const interrupt = () => {
-            console.log("interrupt");
             self.animation.pause();
             self.el.emit(self.id+'Interrupt');
         };

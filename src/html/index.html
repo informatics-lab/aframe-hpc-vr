@@ -19,12 +19,14 @@
         <img id="floor" src="assets/textures/neon-grid.png"/>
         <img id="floor2" src="assets/textures/grid.png"/>
         <img id="dog" src="assets/videos/1.jpg"/>
+        <img id="cat" src="assets/videos/2.jpg"/>
         <img id="panda" src="assets/videos/1.gif"/>
         <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/greeting-background.mp4"/>
         <video id="video" webkit-playsinline playsinline autoplay loop muted src="assets/videos/1.mp4"/>
         <!--<video id="1" webkit-playsinline playsinline loop="true" src="assets/videos/1.mp4"></video>-->
         <!--<video id="2" webkit-playsinline playsinline loop="true" src="assets/videos/2.mp4"></video>-->
+
     </a-assets>
 
     <!--
@@ -112,27 +114,19 @@
              event-set__show="_event:showMenu-positionStart; visible:true;"
              event-set__hide="_event:hideMenu-positionEnd; visible:false;"
     >
-        <!--menu content here-->
-        <a-entity layout="type: line; margin: 1.0" position="0 0 0.01">
+        <!--
+        menu content here
+        each entity tag is one row of links
+        -->
+        <a-entity layout="type: line; margin: 0.6" position="-0.3 0 0.01">
 
             <a-plane width="0.2"
-                     position="2 0 0"
                      height="0.2"
                      class="clickable"
-                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
-                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;" event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     material="shader:flat; src: #dog"
-            ></a-plane>
-
-            <a-plane width="0.2" height="0.2"
-                     class="clickable"
-                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
-                     event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
-                     event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
-                     event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     material="shader:flat; src: #dog"
+                     material="shader:flat; src:#dog;"
             ></a-plane>
 
         </a-entity>

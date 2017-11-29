@@ -1,9 +1,7 @@
 'use strict';
 
+// core library
 import 'aframe';
-
-// import 'aframe-animation-component';
-// import 'aframe-template-component';
 
 // Component that sets a property on a given event
 // see: https://github.com/ngokevin/kframe/tree/master/components/event-set/
@@ -21,11 +19,13 @@ import 'aframe-chromakey-material';
 // see: https://github.com/ngokevin/kframe/tree/master/components/layout/
 import 'aframe-layout-component';
 
+
+
 import './Test';
 import './Animate';
 import './CursorListener';
 import './EnableDisable';
 import './EventEmit';
-import './Header';  // shows & hides the MO logo on enter/exit of VR mode.
-import './Menu';    // contains the main app navigation menu, shown/hidden on click/tap event.
+import './Header';
+import './Menu';
 import './MenuController';

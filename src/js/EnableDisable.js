@@ -12,8 +12,6 @@ AFRAME.registerComponent('enable-disable', {
     init: function () {
         const self = this;
 
-        console.log("enable-disable init");
-
         self.disableBound = self.disable.bind(self);
         self.enableBound = self.enable.bind(self);
         self.attr = Object.keys(self.el.components)
@@ -37,7 +35,6 @@ AFRAME.registerComponent('enable-disable', {
 
     disable: function() {
         const self = this;
-        console.log("disable");
         self.attr.forEach((attr) => {
             self.el.removeAttribute(attr.name);
         });
@@ -45,7 +42,6 @@ AFRAME.registerComponent('enable-disable', {
 
     enable: function () {
         const self = this;
-        console.log("enable");
         self.attr.forEach((attr) => {
             self.el.setAttribute(attr.name, attr.value);
         });

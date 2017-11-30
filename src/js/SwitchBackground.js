@@ -31,7 +31,6 @@ AFRAME.registerComponent('switch-background', {
             self.el.addEventListener('bg-fadeoutEnd', swapSrc);
 
             self.el.emit('bg-fadeout');
-
         }
 
     },

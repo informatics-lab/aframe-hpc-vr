@@ -18,16 +18,22 @@ AFRAME.registerComponent('switch-background', {
 
     switchBackground: function(evt) {
         const self = this;
-        let bgSrc = evt.detail.src;
-        const swapSrc = function() {
-            AFRAME.utils.entity.setComponentProperty(self.el, 'src', bgSrc);
-            self.el.emit('bg-fadein');
-        };
+        let currentBgSrc = AFRAME.utils.entity.getComponentProperty(self.el, 'src');
+        let newBgSrc = evt.detail.src;
 
-        self.el.removeEventListener('bg-fadeoutEnd', swapSrc);
-        self.el.addEventListener('bg-fadeoutEnd', swapSrc);
+        if(!(newBgSrc === currentBgSrc)) {
+            const swapSrc = function () {
+                AFRAME.utils.entity.setComponentProperty(self.el, 'src', newBgSrc);
+                self.el.emit('bg-fadein');
+            };
 
-        self.el.emit('bg-fadeout');
+            self.el.removeEventListener('bg-fadeoutEnd', swapSrc);
+            self.el.addEventListener('bg-fadeoutEnd', swapSrc);
+
+            self.el.emit('bg-fadeout');
+
+        }
+
     },
 
     addEventListeners: function() {

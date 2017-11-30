@@ -19,8 +19,12 @@
         <img id="grid-floor" src="assets/textures/grid-floor.png"/>
         <img id="dog" src="assets/images/dog.jpg"/>
         <img id="cat" src="assets/images/cat.jpg"/>
+
         <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/greeting-background.mp4"/>
+        <video id="sample-video" webkit-playsinline playsinline autoplay loop muted
+               src="assets/videos/SampleVideo_1280x720_1mb.mp4"/>
+
         <audio id="hover" src="assets/sounds/menu-item-hover.wav" />
         <audio id="menu" src="assets/sounds/menu-open-close.wav" />
         <audio id="click" src="assets/sounds/menu-item-click.wav" />
@@ -151,7 +155,7 @@
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; globalListener:false; globalEmitter:true;"
+                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#sample-video; globalListener:false; globalEmitter:true;"
                      material="shader:flat; src:#dog;"
             ></a-plane>
 
@@ -164,7 +168,7 @@
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     event-emit__click="triggerEvents:click; emitEvent:menuchoice2; globalListener:false; globalEmitter:true;"
+                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#greeting-background; globalListener:false; globalEmitter:true;"
                      material="shader:flat; src:#cat;"
             ></a-plane>
 
@@ -175,11 +179,9 @@
     Photosphere background
     -->
     <a-videosphere id="bg" src="#greeting-background" color="#FFFFFF" material="shader:flat;"
-                   event-emit__bg-shaddow-menuchoice="triggerEvents: menuchoice; emitEvent: menuChoice; globalListener: true;"
-                   event-emit__bg-shaddow-menuchoice2="triggerEvents: menuchoice2; emitEvent: menuChoice2; globalListener: true;"
-                   animate__bg-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:menuChoice; from:#FFFFFF; to:#000000;"
-                   animate__bg-fadein="component: color; duration:300; easing:linear; type:color; triggerEvents:menuChoice2; from:#000000; to:#FFFFFF;"
-
+                   switch-background="triggerEvents:menuchoice;"
+                   animate__bg-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:bg-fadeout; from:#FFFFFF; to:#000000;"
+                   animate__bg-fadein="component: color; duration:300; easing:linear; type:color; triggerEvents:bg-fadein; from:#000000; to:#FFFFFF;"
     ></a-videosphere>
 
 </a-scene>

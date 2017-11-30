@@ -4,6 +4,8 @@ module.exports = AFRAME.registerComponent('event-emit', {
     schema: {
         triggerEvents: {type: 'array'},
         emitEvent: {type: 'string', default: ''},
+        keys:{type:'array'},
+        values:{type:'array'},
         globalListener: {type: 'boolean', default: false},
         globalEmitter: {type: 'boolean', default: false}
     },
@@ -22,13 +24,16 @@ module.exports = AFRAME.registerComponent('event-emit', {
         const self = this;
         self.removeEventListeners();
         self.addEventListeners();
+
+        self.message = {};
+        self.data.keys.forEach((key, i) => self.message[key] = self.data.values[i]);
     },
 
-    emitEvent: function () {
+    emitEvent: function (event) {
         const self = this;
         console.log(`emitting ${self.data.emitEvent} from ${self.id}`);
-
-        self.emitter.emit(self.data.emitEvent)
+        Object.assign(self.message, {triggerEvent:event});
+        self.emitter.emit(self.data.emitEvent, self.message)
     },
 
     addEventListeners: function () {

@@ -20,9 +20,6 @@ import 'aframe-chromakey-material';
 import 'aframe-layout-component';
 
 
-import 'aframe-animation-component';
-
-
 import './Test';
 import './Animate';
 import './CursorListener';
@@ -31,3 +28,4 @@ import './EventEmit';
 import './Header';
 import './Menu';
 import './MenuController';
+import './SwitchBackground';

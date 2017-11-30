@@ -43,7 +43,6 @@ module.exports = AFRAME.registerComponent('animate', {
         console.log(`${self.id} is ${self.data.type}`);
         switch (self.data.type) {
             case 'vec3':
-                console.log('vec3');
                 self.data.from = self.toVec3(self.data.from);
                 self.data.to = self.toVec3(self.data.to);
                 if(!self.isVec3AnimationValid(self.data.from, self.data.to)) {
@@ -53,12 +52,10 @@ module.exports = AFRAME.registerComponent('animate', {
                 break;
 
             case 'number':
-                console.log('number');
                 self.data.from = self.toNumber(self.data.from);
                 self.data.to = self.toNumber(self.data.to);
 
             case 'color':
-                console.log('color');
                 if(!self.isAnimationValid(self.data.type, self.data.from, self.data.to)) {
                     return;
                 }

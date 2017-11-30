@@ -20,6 +20,8 @@ import 'aframe-chromakey-material';
 import 'aframe-layout-component';
 
 
+import 'aframe-animation-component';
+
 
 import './Test';
 import './Animate';

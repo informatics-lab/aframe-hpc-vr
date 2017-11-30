@@ -17,8 +17,14 @@ module.exports = AFRAME.registerComponent('animate', {
 
     multiple: true,
 
+    init:function(){
+        const self = this;
+        console.log(`init ${self.id}`);
+    },
+
     update: function (oldData) {
-        let self = this;
+        const self = this;
+        console.log(`update ${self.id}`);
 
         if(self.animation) {
             anime.remove(self.from);
@@ -34,8 +40,10 @@ module.exports = AFRAME.registerComponent('animate', {
             return;
         }
 
+        console.log(`${self.id} is ${self.data.type}`);
         switch (self.data.type) {
             case 'vec3':
+                console.log('vec3');
                 self.data.from = self.toVec3(self.data.from);
                 self.data.to = self.toVec3(self.data.to);
                 if(!self.isVec3AnimationValid(self.data.from, self.data.to)) {
@@ -43,16 +51,20 @@ module.exports = AFRAME.registerComponent('animate', {
                 }
                 setConfig = self.setVec3AnimationConfig;
                 break;
+
             case 'number':
+                console.log('number');
                 self.data.from = self.toNumber(self.data.from);
                 self.data.to = self.toNumber(self.data.to);
-                if(!self.isNumberAnimationValid(self.data.from, self.data.to)) {
+
+            case 'color':
+                console.log('color');
+                if(!self.isAnimationValid(self.data.type, self.data.from, self.data.to)) {
                     return;
                 }
-                setConfig = self.setNumberAnimationConfig;
+                setConfig = self.setAnimationConfig;
                 break;
         }
-
 
         self.from = self.data.from;
         self.to = self.data.to;
@@ -144,17 +156,24 @@ module.exports = AFRAME.registerComponent('animate', {
         return Object.assign(config,conf);
     },
 
-    isNumberAnimationValid: function(from, to) {
-        return !(isNaN(from) || isNaN(to) || (from === to));
+    isAnimationValid: function(type, from, to) {
+        let valid = false;
+        switch(type) {
+            case 'number':
+                valid = (isNaN(from) || isNaN(to));
+            default :
+                valid = (valid) ? valid : (from === to) ;
+        }
+        return !valid;
     },
 
-    setNumberAnimationConfig: function(self, config, from, to) {
-        let variable = {x: from};
+    setAnimationConfig: function(self, config, from, to) {
+        let variable = {myProp: from};
         let conf = {
             targets: variable,
-            x:to,
+            myProp:to,
             update: function(anim) {
-                AFRAME.utils.entity.setComponentProperty(self.el, self.component, anim.animatables[0].target.x);
+                AFRAME.utils.entity.setComponentProperty(self.el, self.component, anim.animatables[0].target.myProp);
             }
         };
         let obj = Object.assign(config,conf);
@@ -163,6 +182,7 @@ module.exports = AFRAME.registerComponent('animate', {
 
     animationStart: function () {
         let self = this;
+        console.log(`started animation of ${self.id}`);
         if(!self.animating) {
             self.animating = true;
             self.el.emit('animationStart');
@@ -172,6 +192,7 @@ module.exports = AFRAME.registerComponent('animate', {
 
     animationEnd: function () {
         let self = this;
+        console.log(`finished animation of ${self.id}`);
         self.animating = false;
         self.el.emit('animationEnd');
         self.el.emit(self.id + 'End')

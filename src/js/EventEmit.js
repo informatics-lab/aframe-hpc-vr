@@ -26,6 +26,8 @@ module.exports = AFRAME.registerComponent('event-emit', {
 
     emitEvent: function () {
         const self = this;
+        console.log(`emitting ${self.data.emitEvent} from ${self.id}`);
+
         self.emitter.emit(self.data.emitEvent)
     },
 

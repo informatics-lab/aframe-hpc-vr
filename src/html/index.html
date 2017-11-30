@@ -43,8 +43,19 @@
     Grid floor for greeting scene
     must be above camera to avoid transparency issues.
     -->
-    <a-plane id="floor" src="#grid-floor" repeat="4 4" position="0 0 0" rotation="-90 0 0" width="100" height="100"
-             material="transparent:true;"></a-plane>
+    <a-plane id="floor"
+             src="#grid-floor"
+             repeat="4 4"
+             position="0 0 0"
+             rotation="-90 0 0"
+             width="100"
+             height="100"
+             color="#FFFFFF"
+             material="transparent:true;"
+             event-emit__floor-shaddow-menuchoice="triggerEvents:menuchoice; emitEvent:menuChoice; globalListener:true;"
+             animate__floor-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:menuChoice; from:#FFFFFF; to:#000000;"
+             event-set__floor-hide="_event:floor-fadeoutEnd; visible:false;"
+    ></a-plane>
 
 
     <!--
@@ -101,10 +112,14 @@
                  event-emit__shaddow-exit-vr="triggerEvents: exit-vr; emitEvent: exitvr; globalListener: true;"
                  event-set__hide="_event: entervr; visible: false;"
                  event-set__show="_event: exitvr; visible: true;"
-                 event-emit="triggerEvents: click; emitEvent: toggleMenu; globalEmitter: true;"
+                 event-emit__desktop-toggle="triggerEvents: click; emitEvent: toggleMenu; globalEmitter: true;"
                  material="shader:flat; src: #dog"
         ></a-plane>
 
+        <!--
+        Used to figure out the position the menu should go to/from
+        -->
+        <a-plane id="menu-placeholder" visible="false" width="1" height="1" position="0 0 -1.1"></a-plane>
 
     </a-camera>
 
@@ -112,11 +127,12 @@
     <!--
     Menu
     -->
-    <a-plane menu id="menu" visible="false" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
-             animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
-             animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
-             event-set__show="_event:showMenu-positionStart; visible:true;"
-             event-set__hide="_event:hideMenu-positionEnd; visible:false;"
+
+    <a-plane menu id="menu" visible="true" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
+            animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
+            animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
+             event-set__show="_event:showMenu-position-begin; visible:true;"
+             event-set__hide="_event:hideMenu-position-complete; visible:false;"
              sound__hide="src:#menu; on:hideMenu; volume:1;"
              sound__show="src:#menu; on:showMenu; volume:1;"
     >
@@ -135,6 +151,7 @@
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
+                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; globalListener:false; globalEmitter:true;"
                      material="shader:flat; src:#dog;"
             ></a-plane>
 
@@ -147,17 +164,23 @@
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
+                     event-emit__click="triggerEvents:click; emitEvent:menuchoice2; globalListener:false; globalEmitter:true;"
                      material="shader:flat; src:#cat;"
             ></a-plane>
 
         </a-entity>
     </a-plane>
 
-
     <!--
     Photosphere background
     -->
-    <a-videosphere id="sky" src="#greeting-background"></a-videosphere>
+    <a-videosphere id="bg" src="#greeting-background" color="#FFFFFF" material="shader:flat;"
+                   event-emit__bg-shaddow-menuchoice="triggerEvents: menuchoice; emitEvent: menuChoice; globalListener: true;"
+                   event-emit__bg-shaddow-menuchoice2="triggerEvents: menuchoice2; emitEvent: menuChoice2; globalListener: true;"
+                   animate__bg-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:menuChoice; from:#FFFFFF; to:#000000;"
+                   animate__bg-fadein="component: color; duration:300; easing:linear; type:color; triggerEvents:menuChoice2; from:#000000; to:#FFFFFF;"
+
+    ></a-videosphere>
 
 </a-scene>
 </body>

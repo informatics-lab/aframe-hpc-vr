@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --open",
-    "production" : "npm run build && cd dist && python -m http.server",
+    "production": "npm run build && cd dist && python -m http.server",
     "deploy": "ghpages",
     "ghpages": "ghpages"
   },

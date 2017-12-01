@@ -25,7 +25,7 @@ import './Animate';
 import './CursorListener';
 import './EnableDisable';
 import './EventEmit';
-import './Header';
+import './HudPosition';
 import './Menu';
 import './MenuController';
 import './SwitchBackground';

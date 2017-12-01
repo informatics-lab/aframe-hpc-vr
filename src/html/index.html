@@ -1,16 +1,49 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="Met Office HPC VR Tour">
 
-    <title>Met Office || HPC VR Tour</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>Met Office || High Performance Computer VR Tour</title>
+    <meta name="description" content="A virtual reality tour of the Met Office high performance computing facilities">
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
 </head>
 <body>
-<a-scene vr-mode-ui="enabled: true;" header menu-controller>
+
+<div id="header">
+    <img class="logo" src="assets/images/met-office-logo.svg" alt="Met Office"/>
+    <h1 class="title">High Performance Computer VR Tour</h1>
+</div>
+
+<a-scene menu-controller
+         sound__hover="src:#hover; on:toggleMenuHover; volume:1;"
+         sound__click="src:#click; on:toggleMenuClick; volume:1;">
 
     <!--
     All our scene assets
@@ -25,9 +58,9 @@
         <video id="sample-video" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/SampleVideo_1280x720_1mb.mp4"/>
 
-        <audio id="hover" src="assets/sounds/menu-item-hover.wav" />
-        <audio id="menu" src="assets/sounds/menu-open-close.wav" />
-        <audio id="click" src="assets/sounds/menu-item-click.wav" />
+        <audio id="hover" src="assets/sounds/menu-item-hover.wav"/>
+        <audio id="menu" src="assets/sounds/menu-open-close.wav"/>
+        <audio id="click" src="assets/sounds/menu-item-click.wav"/>
 
     </a-assets>
 
@@ -103,24 +136,6 @@
         ></a-entity>
 
         <!--
-        Desktop menu-toggle button
-        disappears in VR mode
-        -->
-        <a-plane id="menu-toggle" visible="true" width="0.01" height="0.01" position="-0.07 -0.07 -0.099"
-                 class="clickable"
-                 event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
-                 event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
-                 sound__hover="src:#hover; on:mouseenter; volume:1;"
-                 sound__click="src:#click; on:click; volume:1;"
-                 event-emit__shaddow_enter-vr="triggerEvents: enter-vr; emitEvent: entervr; globalListener: true;"
-                 event-emit__shaddow-exit-vr="triggerEvents: exit-vr; emitEvent: exitvr; globalListener: true;"
-                 event-set__hide="_event: entervr; visible: false;"
-                 event-set__show="_event: exitvr; visible: true;"
-                 event-emit__desktop-toggle="triggerEvents: click; emitEvent: toggleMenu; globalEmitter: true;"
-                 material="shader:flat; src: #dog"
-        ></a-plane>
-
-        <!--
         Used to figure out the position the menu should go to/from
         -->
         <a-plane id="menu-placeholder" visible="false" width="1" height="1" position="0 0 -1.1"></a-plane>
@@ -133,8 +148,8 @@
     -->
 
     <a-plane menu id="menu" visible="true" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
-            animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
-            animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
+             animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
+             animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
              event-set__show="_event:showMenu-position-begin; visible:true;"
              event-set__hide="_event:hideMenu-position-complete; visible:false;"
              sound__hide="src:#menu; on:hideMenu; volume:1;"
@@ -151,7 +166,7 @@
                      class="clickable"
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
-                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1;"
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
@@ -164,7 +179,7 @@
                      class="clickable"
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
-                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1.2;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1;"
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"

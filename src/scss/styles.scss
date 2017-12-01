@@ -3,5 +3,76 @@
 
 body {
 
+  font-family: Emeric;
+
+  #header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2.5em;
+    z-index: 100;
+    background-color: $core-black;
+    border-bottom: 2px solid $core-green;
+    padding-top: 0.4em;
+    padding-left: 0.4em;
+    display: inline-block;
+
+    .logo {
+      height: 2em;
+      display: inline-block;
+      float: left;
+    }
+
+    .title {
+      color: $core-white;
+      font-weight: 300;
+      font-size: 1.2em;
+      display: inline-block;
+      margin: 0px;
+      margin-top: 0.32em;
+      margin-left: 0.4em;
+    }
+
+  }
+
+  #menuToggle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 2em;
+    margin-bottom: 2em;
+    background-color: red;
+    height: 3em;
+    width: 3em;
+    z-index: 100;
+    cursor: pointer;
+
+    &:hover {
+      height: 3.4em;
+      width: 3.4em;
+      margin-left: 1.8em;
+      margin-bottom: 1.8em;
+    }
+  }
+
+  #typed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30rem;
+    height: 3rem;
+    z-index: 100;
+    margin-left:7rem;
+    margin-bottom: 2rem;
+    color:$core-green;
+    font-size:1.5em;
+    background-color:$core-black;
+
+    span.smaller {
+      font-size: 0.6em;
+      margin-top:0.4rem;
+    }
+  }
 
 }

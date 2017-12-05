@@ -53,10 +53,18 @@
         <img id="dog" src="assets/images/dog.jpg"/>
         <img id="cat" src="assets/images/cat.jpg"/>
 
+        <img id="menu-toggle-close" src="assets/textures/vr-header-close_1.png"/>
+
         <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/greeting-background.mp4"/>
         <video id="sample-video" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/SampleVideo_1280x720_1mb.mp4"/>
+
+        <video id="hq-draw" webkit-playsinline playsinline muted
+               src="assets/videos/hq-draw.mp4"/>
+        <video id="cb-draw" webkit-playsinline playsinline muted
+               src="assets/videos/cb-draw.mp4"/>
+
 
         <audio id="hover" src="assets/sounds/menu-item-hover.wav"/>
         <audio id="menu" src="assets/sounds/menu-open-close.wav"/>
@@ -130,10 +138,10 @@
         <!--
         Greeting text
         -->
-        <a-entity material="shader: chromakey; src: #greeting-background; color: 0.0 0.0 0.0;"
-                  geometry="primitive: plane; width:0.08; height:0.04;"
-                  position="-0.05 -0.05 -0.1"
-        ></a-entity>
+        <!--<a-entity material="shader: chromakey; src: #greeting-background; color: 0.0 0.0 0.0;"-->
+                  <!--geometry="primitive: plane; width:0.08; height:0.04;"-->
+                  <!--position="-0.05 -0.05 -0.1"-->
+        <!--&gt;</a-entity>-->
 
         <!--
         Used to figure out the position the menu should go to/from
@@ -146,23 +154,46 @@
     <!--
     Menu
     -->
-
-    <a-plane menu id="menu" visible="true" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0"
-             animate__showMenu-position="component: position; duration:2000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
+    <a-plane id="menu"
+             menu="globalListener:true;"
+             width="2"
+             height="0.9"
+             visible="true"
+             position="0 0 0"
+             rotation="-90 0 0"
+             animate__showMenu-position="component: position; duration:1000; triggerEvents:showMenu; interruptEvents:hideMenu; from:0 0 0;"
              animate__hideMenu-position="component: position; duration:300; easing:linear; triggerEvents:hideMenu; interruptEvents:showMenu; to:0 0 0;"
-             event-set__show="_event:showMenu-position-begin; visible:true;"
-             event-set__hide="_event:hideMenu-position-complete; visible:false;"
+             event-set__show="_event:showMenu-positionStart; visible:true;"
+             event-set__hide="_event:hideMenu-positionEnd; visible:false;"
+             event-emit__showMenu-positionStart="triggerEvents:showMenu-positionStart; emitEvent:menuopen; globalListener:false; globalEmitter:true;"
+             event-emit__hideMenu-positionEnd="triggerEvents:hideMenu-positionEnd; emitEvent:menuclosed; globalListener:false; globalEmitter:true;"
              sound__hide="src:#menu; on:hideMenu; volume:1;"
              sound__show="src:#menu; on:showMenu; volume:1;"
+             color="#2A2A2A"
+             material="transparent:true; opacity:0.75;"
     >
+
+
+        <!-- TODO make only visible for desktop mode-->
+        <a-plane id="toggleMenuClose"
+                 width="1.5"
+                 height="0.2"
+                 sound__hover="src:#hover; on:mouseenter; volume:1;"
+                 sound__click="src:#click; on:click; volume:1;"
+                 event-emit__click="triggerEvents:click; emitEvent:toggleMenu; globalListener:false; globalEmitter:true;"
+                 class="clickable"
+                 position="0 0.55 0"
+                 material="shader:flat; src:#menu-toggle-close; transparent:true;"
+        ></a-plane>
+
         <!--
         menu content here
         each entity tag is one row of links
         -->
-        <a-entity layout="type: line; margin: 0.6" position="-0.3 0 0.01">
+        <a-entity class="menu-tier-1" layout="type: line; margin:1.2" position="-0.6 0 0.01">
 
-            <a-plane width="0.2"
-                     height="0.2"
+            <a-video width="1.0"
+                     height="0.8"
                      class="clickable"
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
@@ -171,11 +202,13 @@
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
                      event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#sample-video; globalListener:false; globalEmitter:true;"
-                     material="shader:flat; src:#dog;"
-            ></a-plane>
+                     material="shader: flat; src: #hq-draw; transparent:true; opacity:0.75;"
+                     action-src-on-event__show="action:play; src:#hq-draw; triggerEvents:menuopen; globalListener:true;"
+                     action-src-on-event__hide="action:load; src:#hq-draw; triggerEvents:menuclosed; globalListener:true;"
+            ></a-video>
 
-            <a-plane width="0.2"
-                     height="0.2"
+            <a-video width="1.0"
+                     height="0.8"
                      class="clickable"
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
@@ -184,10 +217,41 @@
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
                      event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#greeting-background; globalListener:false; globalEmitter:true;"
-                     material="shader:flat; src:#cat;"
-            ></a-plane>
+                     material="shader: flat; src: #cb-draw; transparent:true; opacity:0.75; color:0 0 0;"
+                     action-src-on-event__show="action:play; src:#cb-draw; triggerEvents:menuopen; globalListener:true;"
+                     action-src-on-event__hide="action:load; src:#cb-draw; triggerEvents:menuclosed; globalListener:true;"
+            ></a-video>
 
         </a-entity>
+
+        <a-entity id="hq-menu" class="menu-tier-2"
+                  visible="false"
+                  layout="type: line; margin:1.2"
+                  width="2"
+                  height="0.9"
+        >
+
+            <a-box color="red"></a-box>
+            <a-box color="blue"></a-box>
+            <a-box color="red"></a-box>
+            <a-box color="blue"></a-box>
+
+        </a-entity>
+
+        <a-entity id="cb-menu" class="menu-tier-2"
+                  visible="false"
+                  layout="type: line; margin:1.2"
+                  width="2"
+                  height="0.9"
+        >
+
+            <a-box color="yellow"></a-box>
+            <a-box color="green"></a-box>
+            <a-box color="yellow"></a-box>
+            <a-box color="green"></a-box>
+
+        </a-entity>
+
     </a-plane>
 
     <!--

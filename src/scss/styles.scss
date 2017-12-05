@@ -10,16 +10,16 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    height: 2.5em;
+    height: 2.5rem;
     z-index: 100;
     background-color: $core-black;
     border-bottom: 2px solid $core-green;
-    padding-top: 0.4em;
-    padding-left: 0.4em;
+    padding-top: 0.4rem;
+    padding-left: 0.4rem;
     display: inline-block;
 
     .logo {
-      height: 2em;
+      height: 2rem;
       display: inline-block;
       float: left;
     }
@@ -39,40 +39,104 @@ body {
   #menuToggle {
     position: absolute;
     bottom: 0;
-    left: 0;
-    margin-left: 2em;
-    margin-bottom: 2em;
-    background-color: red;
-    height: 3em;
-    width: 3em;
+    left:50%;
+    transform: translate(-50%, 0);
+
+    background-image: url("/assets/textures/vr-header-open_1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    height: 2rem;
+    width: 20rem;
     z-index: 100;
     cursor: pointer;
 
-    &:hover {
-      height: 3.4em;
-      width: 3.4em;
-      margin-left: 1.8em;
-      margin-bottom: 1.8em;
-    }
   }
 
-  #typed {
+  #typingContainer {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 30rem;
-    height: 3rem;
+    width: 28rem;
+    height:3rem;
     z-index: 100;
-    margin-left:7rem;
-    margin-bottom: 2rem;
-    color:$core-green;
+    margin-left:2rem;
+    margin-bottom: 3rem;
     font-size:1.5em;
-    background-color:$core-black;
 
-    span.smaller {
-      font-size: 0.6em;
-      margin-top:0.4rem;
+    .bg {
+      width:100%;
+      height:100%;
+      padding:0.4rem 0.8rem;
+      opacity: 0.9;
+      background-color: $core-black;
     }
+
+    .text {
+      position: relative;
+      float: left;
+      opacity: 1.0;
+      margin: 0.4rem;
+      line-height: 1.5rem;
+      z-index: 101;
+      color: $summer-blue;
+
+
+      span.smaller {
+        font-size: 0.6em;
+        margin-top:0.4rem;
+      }
+
+      //&:hover {
+      //  -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
+      //  -moz-animation: neon2 1.5s ease-in-out infinite alternate;
+      //  animation: neon2 1.5s ease-in-out infinite alternate;
+      //}
+    }
+
   }
 
+}
+
+@media only screen and (min-width: 768px) {
+  /* tablets and desktop */
+}
+
+@media only screen and (max-width: 767px) {
+  /* phones */
+  #header h1.title {
+    display: none;
+  }
+
+}
+
+
+
+
+@-webkit-keyframes neon2 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 75px #228DFF;
+  }
+}
+
+@-moz-keyframes neon2 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 75px #228DFF;
+  }
+}
+
+@keyframes neon2 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 75px #228DFF;
+  }
 }

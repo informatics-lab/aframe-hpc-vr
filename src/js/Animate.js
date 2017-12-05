@@ -19,12 +19,10 @@ module.exports = AFRAME.registerComponent('animate', {
 
     init:function(){
         const self = this;
-        console.log(`init ${self.id}`);
     },
 
     update: function (oldData) {
         const self = this;
-        console.log(`update ${self.id}`);
 
         if(self.animation) {
             anime.remove(self.from);
@@ -40,7 +38,6 @@ module.exports = AFRAME.registerComponent('animate', {
             return;
         }
 
-        console.log(`${self.id} is ${self.data.type}`);
         switch (self.data.type) {
             case 'vec3':
                 self.data.from = self.toVec3(self.data.from);
@@ -179,7 +176,6 @@ module.exports = AFRAME.registerComponent('animate', {
 
     animationStart: function () {
         let self = this;
-        console.log(`started animation of ${self.id}`);
         if(!self.animating) {
             self.animating = true;
             self.el.emit('animationStart');
@@ -189,7 +185,6 @@ module.exports = AFRAME.registerComponent('animate', {
 
     animationEnd: function () {
         let self = this;
-        console.log(`finished animation of ${self.id}`);
         self.animating = false;
         self.el.emit('animationEnd');
         self.el.emit(self.id + 'End')

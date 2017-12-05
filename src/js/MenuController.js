@@ -11,35 +11,41 @@ module.exports = AFRAME.registerComponent('menu-controller', {
         if(!AFRAME.utils.device.isMobile()) {
             AFRAME.utils.entity.setComponentProperty(self.el,'vr-mode-ui',{enabled:false});
             //init desktop ui
-
-            let menuToggle = document.createElement('div');
-            menuToggle.setAttribute('id','menuToggle');
-
-            menuToggle.addEventListener('mouseenter', ()=> {
-                self.el.emit('toggleMenuHover');
-            });
-
-            menuToggle.addEventListener('click', ()=> {
-                self.el.emit('toggleMenu');
-                self.el.emit('toggleMenuClick')
-            });
-
-            document.body.appendChild(menuToggle);
-
-            let typing = document.createElement('div');
-            typing.setAttribute('id','typed');
-            document.body.appendChild(typing);
-
-            let typed = new Typed('#typed', {
-                strings: ['Welcome to the Met Office HPC VR Tour <br/><span class=\"smaller\">click the menu to begin...</span>'],
-                typeSpeed: 30
-            });
-
         } else {
             AFRAME.utils.entity.setComponentProperty(self.el,'vr-mode-ui',{enabled:true});
-
-
         }
+
+        let menuToggle = document.createElement('div');
+        menuToggle.setAttribute('id','menuToggle');
+
+        menuToggle.addEventListener('mouseenter', ()=> {
+            self.el.emit('toggleMenuHover');
+        });
+
+        menuToggle.addEventListener('click', ()=> {
+            self.el.emit('toggleMenu');
+            self.el.emit('toggleMenuClick')
+        });
+
+        document.body.appendChild(menuToggle);
+
+        let typingContainer = document.createElement('div');
+        typingContainer.setAttribute('id','typingContainer');
+        document.body.appendChild(typingContainer);
+
+        let typingText = document.createElement('div');
+        typingText.setAttribute('class','text');
+        typingContainer.appendChild(typingText);
+
+        let typingBg = document.createElement('div');
+        typingBg.setAttribute('class','bg');
+        typingContainer.appendChild(typingBg);
+
+        let typed = new Typed('#typingContainer .text', {
+            strings: ['^1000 Welcome to the Met Office HPC VR Tour <br/><span class=\"smaller\">open the menu to begin...</span>'],
+            typeSpeed: 30,
+            showCursor:false
+        });
 
 
 

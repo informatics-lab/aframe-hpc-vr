@@ -36,6 +36,7 @@
     "aframe-event-set-component": "^4.0.1",
     "aframe-gif-shader": "^0.2.0",
     "aframe-layout-component": "^4.3.0",
+    "aframe-line-component": "^1.0.1",
     "animejs": "^2.2.0",
     "three": "^0.88.0",
     "typed.js": "^2.0.6"

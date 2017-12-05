@@ -21,11 +21,11 @@ import 'aframe-layout-component';
 
 
 import './Test';
+import './ActionSrcOnEvent';
 import './Animate';
 import './CursorListener';
 import './EnableDisable';
 import './EventEmit';
-import './HudPosition';
 import './Menu';
 import './MenuController';
 import './SwitchBackground';

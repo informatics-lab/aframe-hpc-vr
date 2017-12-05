@@ -22,8 +22,6 @@ module.exports = AFRAME.registerComponent('refreshable-raycaster', {
 
     refresh: function (event) {
         const self = this;
-        console.log("refreshing raycaster");
-        console.log(self.raycaster.components.raycaster);
         self.raycaster.components.raycaster.refreshObjects();
     },
 

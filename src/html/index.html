@@ -42,6 +42,7 @@
 </div>
 
 <a-scene menu-controller
+         refreshable-raycaster="triggerEvents:refresh-menu; globalListener:true;"
          sound__hover="src:#hover; on:toggleMenuHover; volume:1;"
          sound__click="src:#click; on:toggleMenuClick; volume:1;">
 
@@ -174,13 +175,13 @@
     >
 
 
-        <!-- TODO make only visible for desktop mode-->
+        <!-- TODO make visible only for desktop mode-->
         <a-plane id="toggleMenuClose"
-                 width="1.5"
+                 width="1.7"
                  height="0.2"
                  sound__hover="src:#hover; on:mouseenter; volume:1;"
                  sound__click="src:#click; on:click; volume:1;"
-                 event-emit__click="triggerEvents:click; emitEvent:toggleMenu; globalListener:false; globalEmitter:true;"
+                 event-emit__toggleMenu="triggerEvents:click; emitEvent:toggleMenu; globalListener:false; globalEmitter:true;"
                  class="clickable"
                  position="0 0.55 0"
                  material="shader:flat; src:#menu-toggle-close; transparent:true;"
@@ -188,67 +189,117 @@
 
         <!--
         menu content here
-        each entity tag is one row of links
         -->
-        <a-entity class="menu-tier-1" layout="type: line; margin:1.2" position="-0.6 0 0.01">
+        <a-entity class="menu-tier-1"
+                  visible="true"
+                  position="-0.6 0 0.01"
+                  layout="type: line; margin:1.2"
+                  event-emit__shaddow-menu-hq="triggerEvents:hq-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
+                  event-emit__shaddow-menu-cb="triggerEvents:cb-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
+                  event-emit__shaddow-hideMenuPosition="triggerEvents:hideMenu-positionEnd; emitEvent:show; globalListener:true; globalEmitter:false;"
+                  event-set__hide="_event:hide; visible:false;"
+                  event-set__show="_event:show; visible:true;"
+                  event-emit__refreshMenu="triggerEvents:show,hide; emitEvent:refresh-menu; globalListener:false; globalEmitter:true;"
+        >
 
-            <a-video width="1.0"
+            <!--
+            Menu Tier 1 - HQ link
+            -->
+            <!--enable-disable="disableEvents:click,cbmenu; enableEvents:show; toggleProps:class;"-->
+            <a-video id="hq-menu-link"
+                     width="1.0"
                      height="0.8"
                      class="clickable"
+                     material="shader: flat; src: #hq-draw; transparent:true; opacity:0.75;"
+
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
+
                      event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1;"
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#sample-video; globalListener:false; globalEmitter:true;"
-                     material="shader: flat; src: #hq-draw; transparent:true; opacity:0.75;"
+                     event-emit__click="triggerEvents:click; emitEvent:hq-menu; globalListener:false; globalEmitter:true;"
+                     event-emit__select="triggerEvents:click; emitEvent:hide; globalListener:false; globalEmitter:false;"
+
                      action-src-on-event__show="action:play; src:#hq-draw; triggerEvents:menuopen; globalListener:true;"
                      action-src-on-event__hide="action:load; src:#hq-draw; triggerEvents:menuclosed; globalListener:true;"
+
+                     event-emit__shaddow-cbClick="triggerEvents:cb-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
+                     event-emit__shaddow-hideMenuPositionEnd="triggerEvents:hideMenu-positionEnd; emitEvent:show; globalListener:true; globalEmitter:false;"
+
+                     event-set__hide="_event:hide; class:not-clickable;"
+                     event-set__show="_event:show; class:clickable;"
+
             ></a-video>
 
-            <a-video width="1.0"
+            <!--
+            Menu Tier 1 - CB link
+            -->
+            <!--enable-disable="disableEvents:click,hqmenu; enableEvents:show; toggleProps:class;"-->
+            <a-video id="cb-menu-link"
+                     width="1.0"
                      height="0.8"
                      class="clickable"
+                     material="shader: flat; src: #cb-draw; transparent:true; opacity:0.75;"
+
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
+
                      event-set__mouseenter="_event:mouseenter; scale: 1.2 1.2 1;"
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"
-                     event-emit__click="triggerEvents:click; emitEvent:menuchoice; keys:src; values:#greeting-background; globalListener:false; globalEmitter:true;"
-                     material="shader: flat; src: #cb-draw; transparent:true; opacity:0.75; color:0 0 0;"
+                     event-emit__click="triggerEvents:click; emitEvent:cb-menu; globalListener:false; globalEmitter:true;"
+                     event-emit__select="triggerEvents:click; emitEvent:hide; globalListener:false; globalEmitter:false;"
+
+                     event-emit__shaddow-menuclosed="triggerEvents:menuclosed; emitEvent:show; globalListener:true; globalEmitter:false;"
+                     event-emit__shaddow-menuopen="triggerEvents:menuopen; emitEvent:show; globalListener:true; globalEmitter:false;"
+                     event-emit__shaddow-hqClick="triggerEvents:hq-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
+
                      action-src-on-event__show="action:play; src:#cb-draw; triggerEvents:menuopen; globalListener:true;"
                      action-src-on-event__hide="action:load; src:#cb-draw; triggerEvents:menuclosed; globalListener:true;"
+
+                     event-set__hide="_event:hide; class:not-clickable;"
+                     event-set__show="_event:show; class:clickable;"
             ></a-video>
 
         </a-entity>
 
         <a-entity id="hq-menu" class="menu-tier-2"
                   visible="false"
-                  layout="type: line; margin:1.2"
-                  width="2"
+                  layout="type: line; margin:0.9"
+                  position="-1.35 0 0.01"
                   height="0.9"
+                  event-emit__shaddow-menu-hq="triggerEvents:hq-menu; emitEvent:show; globalListener:true; globalEmitter:false;"
+                  event-emit__shaddow-toggleMenuClose="triggerEvents:hideMenu-positionEnd; emitEvent:hide; globalListener:true; globalEmitter:false;"
+                  event-set__show="_event:show; visible:true;"
+                  event-set__hide="_event:hide; visible:false;"
+                  event-emit__refresh-menu="triggerEvents:show,hide; emitEvent:refresh-menu; globalListener:false; globalEmitter:true;"
         >
 
-            <a-box color="red"></a-box>
-            <a-box color="blue"></a-box>
-            <a-box color="red"></a-box>
-            <a-box color="blue"></a-box>
+            <a-plane color="red" width="0.8" height="0.6"></a-plane>
+            <a-plane color="red" width="0.8" height="0.6"></a-plane>
+            <a-plane color="red" width="0.8" height="0.6"></a-plane>
+            <a-plane color="red" width="0.8" height="0.6"></a-plane>
 
         </a-entity>
 
         <a-entity id="cb-menu" class="menu-tier-2"
                   visible="false"
-                  layout="type: line; margin:1.2"
-                  width="2"
+                  layout="type: line; margin:0.9"
+                  position="-0.9 0 0.01"
                   height="0.9"
+                  event-emit__shaddow-menu-hq="triggerEvents:cb-menu; emitEvent:show; globalListener:true; globalEmitter:false;"
+                  event-emit__shaddow-toggleMenuClose="triggerEvents:hideMenu-positionEnd; emitEvent:hide; globalListener:true; globalEmitter:false;"
+                  event-set__show="_event:show; visible:true;"
+                  event-set__hide="_event:hide; visible:false;"
+                  event-emit__refresh-menu="triggerEvents:show,hide; emitEvent:refresh-menu; globalListener:false; globalEmitter:true;"
         >
 
-            <a-box color="yellow"></a-box>
-            <a-box color="green"></a-box>
-            <a-box color="yellow"></a-box>
-            <a-box color="green"></a-box>
+            <a-plane color="blue" width="0.8" height="0.6"></a-plane>
+            <a-plane color="blue" width="0.8" height="0.6"></a-plane>
+            <a-plane color="blue" width="0.8" height="0.6"></a-plane>
 
         </a-entity>
 

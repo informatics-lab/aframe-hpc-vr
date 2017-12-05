@@ -28,4 +28,5 @@ import './EnableDisable';
 import './EventEmit';
 import './Menu';
 import './MenuController';
+import './RefreshableRaycaster';
 import './SwitchBackground';

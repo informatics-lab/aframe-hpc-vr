@@ -42,7 +42,7 @@ body {
     left:50%;
     transform: translate(-50%, 0);
 
-    background-image: url("/assets/textures/vr-header-open_1.png");
+    background-image: url("/assets/textures/open-menu-dark.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -51,6 +51,10 @@ body {
     width: 20rem;
     z-index: 100;
     cursor: pointer;
+
+    &:hover {
+      background-image: url("/assets/textures/open-menu-lit.png");
+    }
 
   }
 
@@ -93,6 +97,7 @@ body {
       //  -moz-animation: neon2 1.5s ease-in-out infinite alternate;
       //  animation: neon2 1.5s ease-in-out infinite alternate;
       //}
+
     }
 
   }
@@ -110,8 +115,6 @@ body {
   }
 
 }
-
-
 
 
 @-webkit-keyframes neon2 {

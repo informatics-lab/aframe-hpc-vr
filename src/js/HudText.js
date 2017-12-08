@@ -1,10 +1,10 @@
 'use strict';
+import Typed from 'typed.js';
 
 module.exports = AFRAME.registerComponent('hud-text', {
     schema: {
         triggerEvents: {type: 'array'},
         hideEvents:{type:'array'},
-        eventTextKey: {type:'string', default:'text'},
         globalListener: {type: 'boolean', default: false},
     },
 
@@ -25,6 +25,7 @@ module.exports = AFRAME.registerComponent('hud-text', {
         document.body.appendChild(typingContainer);
 
         let typingText = document.createElement('div');
+        typingText.setAttribute('id','typingText');
         typingText.setAttribute('class','text');
         typingContainer.appendChild(typingText);
 
@@ -33,19 +34,51 @@ module.exports = AFRAME.registerComponent('hud-text', {
         typingContainer.appendChild(typingBg);
 
         self.typingContainer = typingContainer;
+        self.typingText = typingText;
 
         self.removeEventListeners();
         self.addEventListeners();
 
-
+        self.typeTextBound();
     },
 
+    //TODO fill out text
     typeText: function (event) {
         const self = this;
+        console.log(event);
         self.typingContainer.setAttribute("style", "display:block;");
+        self.typingText.innerText = '';
+        self.text = '^200 Welcome to the Met Office HPC VR Tour <br/><span class=\"smaller\">open the menu to begin...</span>';
+        if(event) {
+            switch(event.detail.src) {
+                case '#hq-outside':
+                    self.text = '^200 You are now outside Met Office HQ, Exeter<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#hq-hpc':
+                    self.text = '^200 some text about hpc in it hall 1<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#hq-servers':
+                    self.text = '^200 some text about servers in it hall 1<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#hq-storage':
+                    self.text = '^200 some text about storage in it hall 1<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#cb-outside':
+                    self.text = '^200 some text about collaboration building<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#cb-hpc':
+                    self.text = '^200 some text about hpc at the collaboration buildng<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                case '#cb-servers':
+                    self.text = '^200 some text about servers at the collaboration building<br/><span class="smaller">open the menu to continue...</span>';
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        let typed = new Typed('#typingContainer .text', {
-            strings: ['^1000 Welcome to the Met Office HPC VR Tour <br/><span class=\"smaller\">open the menu to begin...</span>'],
+        self.typed = new Typed('#typingContainer .text', {
+            strings: [self.text],
             typeSpeed: 30,
             showCursor:false
         });

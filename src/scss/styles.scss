@@ -62,7 +62,6 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 28rem;
     height:3rem;
     z-index: 100;
     margin-left:2rem;
@@ -72,7 +71,8 @@ body {
     .bg {
       width:100%;
       height:100%;
-      padding:0.4rem 0.8rem;
+      padding-bottom:0.4rem;
+      padding-top:0.4rem;
       opacity: 0.9;
       background-color: $core-black;
     }
@@ -91,12 +91,6 @@ body {
         font-size: 0.6em;
         margin-top:0.4rem;
       }
-
-      //&:hover {
-      //  -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
-      //  -moz-animation: neon2 1.5s ease-in-out infinite alternate;
-      //  animation: neon2 1.5s ease-in-out infinite alternate;
-      //}
 
     }
 

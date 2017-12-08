@@ -26,6 +26,7 @@ import './Animate';
 import './CursorListener';
 import './EnableDisable';
 import './EventEmit';
+import './HudText';
 import './Menu';
 import './MenuController';
 import './RefreshableRaycaster';

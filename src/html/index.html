@@ -56,7 +56,7 @@
         <img id="grid-floor" src="assets/textures/grid-floor.png"/>
         <img id="menu-bg" src="assets/textures/menu-box.png"/>
 
-        <img id="menu-toggle-close" src="assets/textures/vr-header-close_1.png"/>
+        <img id="menu-toggle-close" src="assets/textures/menu-toggle-close-bg.png"/>
 
         <video id="greeting-background" webkit-playsinline playsinline autoplay loop muted
                src="assets/videos/greeting-background.mp4"/>
@@ -215,22 +215,36 @@
              event-emit__cb-menu="triggerEvents:cb-menu; emitEvent:cbmenu; globalListener:true; globalEmitter:false;"
              animate__cbmenu="component: width; duration:200; triggerEvents:cbmenu; type:number; from:2; to:2.8;"
              event-emit__hq-menu="triggerEvents:hq-menu; emitEvent:hqmenu; globalListener:true; globalEmitter:false;"
-             animate__hqmenu="component: width; duration:200; triggerEvents:hqmenu; type:number; from:2; to:3.9;"
+             animate__hqmenu="component: width; duration:200; triggerEvents:hqmenu; type:number; from:2; to:3.7;"
              event-set__menu-width="_event:hideMenu-positionEnd; width:2;"
     >
 
 
         <!-- TODO make visible only for desktop mode-->
         <a-plane id="toggleMenuClose"
-                 width="1.7"
-                 height="0.2"
+                 width="1"
+                 height="0.18"
                  sound__hover="src:#hover; on:mouseenter; volume:1;"
                  sound__click="src:#click; on:click; volume:1;"
                  event-emit__toggleMenu="triggerEvents:click; emitEvent:toggleMenu; globalListener:false; globalEmitter:true;"
+                 event-emit__closeMouseEnter="triggerEvents:mouseenter; emitEvent:toggleMenuCloseMouseEnter; globalListener:false; globalEmitter:true;"
+                 event-emit__closeMouseLeave="triggerEvents:mouseleave; emitEvent:toggleMenuCloseMouseLeave; globalListener:false; globalEmitter:true;"
+                 position="0 0.59 0"
                  class="clickable"
-                 position="0 0.55 0"
                  material="shader:flat; src:#menu-toggle-close; transparent:true;"
         ></a-plane>
+
+        <a-text position="-0.34 0.59 0"
+                width="2"
+                height="2"
+                letter-spacing="4"
+                value="CLOSE  MENU"
+                color="#007AA9"
+                event-emit__shaddow-closeMouseEnter="triggerEvents:toggleMenuCloseMouseEnter; emitEvent:on; globalListener:true; globalEmitter:false;"
+                event-set__on="_event:on; color:#94d9ff"
+                event-emit__shaddow-closeMouseLeave="triggerEvents:toggleMenuCloseMouseLeave; emitEvent:off; globalListener:true; globalEmitter:false;"
+                event-set__off="_event:off; color:#007AA9"
+        ></a-text>
 
         <!--
         menu content here

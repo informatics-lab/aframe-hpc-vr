@@ -19,6 +19,11 @@ module.exports = AFRAME.registerComponent('menu-controller', {
         let menuToggle = document.createElement('div');
         menuToggle.setAttribute('id','menuToggle');
 
+        let menuToggleText = document.createElement('div');
+        menuToggleText.setAttribute('class','menuToggleText');
+        menuToggleText.innerText = 'OPEN MENU';
+        menuToggle.appendChild(menuToggleText);
+
         menuToggle.addEventListener('mouseenter', ()=> {
             self.el.emit('toggleMenuHover');
         });

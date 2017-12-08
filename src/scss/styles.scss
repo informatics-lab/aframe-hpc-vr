@@ -42,7 +42,7 @@ body {
     left:50%;
     transform: translate(-50%, 0);
 
-    background-image: url("/assets/textures/open-menu-dark.png");
+    background-image: url("/assets/textures/menu-toggle-open-bg.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -52,8 +52,16 @@ body {
     z-index: 100;
     cursor: pointer;
 
+    .menuToggleText {
+      color:$summer-blue;
+      text-align: center;
+      letter-spacing: 0.15rem;
+    }
+
     &:hover {
-      background-image: url("/assets/textures/open-menu-lit.png");
+      .menuToggleText {
+        color: #94d9ff;
+      }
     }
 
   }

@@ -30,4 +30,5 @@ import './HudText';
 import './Menu';
 import './MenuController';
 import './RefreshableRaycaster';
+import './SoundController';
 import './SwitchBackground';

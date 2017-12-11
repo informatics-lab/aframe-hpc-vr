@@ -24,13 +24,17 @@ module.exports = AFRAME.registerComponent('hud-text', {
         typingContainer.setAttribute('id','typingContainer');
         document.body.appendChild(typingContainer);
 
-        let typingText = document.createElement('div');
-        typingText.setAttribute('id','typingText');
+        let typingText = document.createElement('span');
         typingText.setAttribute('class','text');
         typingContainer.appendChild(typingText);
 
+        // let textSpan = document.createElement('span');
+        // textSpan.setAttribute('class','text');
+        // typingText.appendChild(textSpan);
+
         let typingBg = document.createElement('div');
         typingBg.setAttribute('class','bg');
+        typingBg.innerHTML = '&nbsp;';
         typingContainer.appendChild(typingBg);
 
         self.typingContainer = typingContainer;
@@ -48,29 +52,29 @@ module.exports = AFRAME.registerComponent('hud-text', {
         console.log(event);
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
-        self.text = '^200 Welcome to the Met Office HPC VR Tour <br/><span class=\"smaller\">open the menu to begin...</span>';
+        self.text = '^200 Welcome to the Met Office HPC VR Tour ^1000\n Open the menu to begin';
         if(event) {
             switch(event.detail.src) {
                 case '#hq-outside':
-                    self.text = '^200 You are now outside Met Office HQ, Exeter. Our Headquarters are home to two IT Halls, the energy needed to power these is equivalent to energy needed to power the whole of Exeter.<br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 You are now outside Met Office HQ, home to two of our three HPC\'s. ^2000\n Open the menu to continue ';
                     break;
                 case '#hq-hpc':
-                    self.text = '^200 This is the Cray XC40 Supercomputer. Each of these machines were installed in 3 phases and are capable of perfoming 14 petaflops of operations per second.<br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 This is the Cray XC40 HPC, capable of 14 thousand  \n million million (10<sup>5</sup>) floating-point operations per second. ^2000\n Open the menu to continue';
                     break;
                 case '#hq-servers':
-                    self.text = '^200 The Met Office has 300 servers running Linux at any given time. <br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 There are over 300 Linux servers running at any given moment, \n these package and serve data to and from the HPC. ^2000\n Open the menu to continue';
                     break;
                 case '#hq-storage':
-                    self.text = '^200 This is the HPC data storage, where we store the results of our weather and climate research. Each unit is capable of storing up to 400 petabytes of data. 1<br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 This is the HPC data storage archive, contained within are more numbers \n than there are grains of sand on Earth. ^2000\n Open the menu to continue';
                     break;
                 case '#cb-outside':
-                    self.text = '^200 You’re now standing outside of our collaboration building, located at Exeter Science Park. This building is home to the latest HPC addition and various Met Office teams.<br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 You’re now outside of the Met Office collaboration building, \n located at Exeter Science Park and home to our third HPC. ^2000\n Open the menu to continue';
                     break;
                 case '#cb-hpc':
-                    self.text = '^200 The collaboration building HPC is used primarily for research and collaboration data and <br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 This HPC is used primarily by the research community, \n and also helps to test new versions of the forecasting model. ^2000\n Open the menu to continue';
                     break;
                 case '#cb-servers':
-                    self.text = '^200 some text about servers at the collaboration building<br/><span class="smaller">open the menu to continue...</span>';
+                    self.text = '^200 This is the Cray Sonexion scale-out Lustre storage system, \n which acts as the hard-drive of the HPC. ^2000\n Open the menu to continue';
                     break;
                 default:
                     break;

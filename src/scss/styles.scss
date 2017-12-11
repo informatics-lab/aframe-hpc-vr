@@ -1,6 +1,8 @@
 @import "font_emeric";
 @import "mo-style-variables";
 
+$neon-blue:#94d9ff;
+
 body {
 
   font-family: Emeric;
@@ -47,8 +49,8 @@ body {
     background-repeat: no-repeat;
     background-position: bottom;
 
-    height: 2rem;
-    width: 20rem;
+    height: 2.6rem;
+    width: 80%;
     z-index: 100;
     cursor: pointer;
 
@@ -56,11 +58,13 @@ body {
       color:$summer-blue;
       text-align: center;
       letter-spacing: 0.15rem;
+      margin-top: 0.25rem;
+      font-size: 1.1rem;
     }
 
     &:hover {
       .menuToggleText {
-        color: #94d9ff;
+        color: $neon-blue;
       }
     }
 
@@ -70,36 +74,40 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    height:3rem;
     z-index: 100;
     margin-left:2rem;
     margin-bottom: 3rem;
-    font-size:1.5em;
+    display: block;
+    white-space:pre;
 
     .bg {
       width:100%;
       height:100%;
-      padding-bottom:0.4rem;
-      padding-top:0.4rem;
-      opacity: 0.9;
+      opacity: 0.75;
       background-color: $core-black;
+      position: absolute;
     }
 
     .text {
       position: relative;
       float: left;
       opacity: 1.0;
-      margin: 0.4rem;
-      line-height: 1.5rem;
+      line-height: 2.3rem;
       z-index: 101;
-      color: $summer-blue;
+      color: $neon-blue;
+      font-weight: 400;
+      letter-spacing: 0.1rem;
+      font-size:1.8em;
+      padding-bottom:0.4rem;
+      padding-top:0.4rem;
+      padding-right: 0.2rem;
+      padding-left: 0.2rem;
 
+    }
 
-      span.smaller {
-        font-size: 0.6em;
-        margin-top:0.4rem;
-      }
-
+    .typed-cursor{
+      color: $neon-blue;
+      
     }
 
   }

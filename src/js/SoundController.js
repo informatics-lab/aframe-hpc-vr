@@ -37,7 +37,7 @@ module.exports = AFRAME.registerComponent('sound-controller', {
                 case '#hq-storage':
                 case '#cb-hpc':
                 case '#cb-servers':
-                    self.volume = 1;
+                    self.volume = 0.5;
                     break;
                 default:
                     self.volume = 0;

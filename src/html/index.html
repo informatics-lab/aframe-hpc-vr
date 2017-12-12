@@ -32,7 +32,6 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-
 </head>
 <body>
 
@@ -45,7 +44,7 @@
          refreshable-raycaster="triggerEvents:refresh-menu; globalListener:true;"
          sound__hover="src:#hover; on:toggleMenuHover; volume:1;"
          sound__click="src:#click; on:toggleMenuClick; volume:1;"
-         vr-mode-ui="false"
+         vr-mode-ui="enabled: false;"
 >
 
     <!--
@@ -160,32 +159,6 @@
     -->
     <a-camera id="camera" active="true" reverse-mouse-drag="true">
         <!--
-        Gaze Controls
-        -->
-        <!--<a-entity id="gaze-controls"-->
-                  <!--visible="false"-->
-                  <!--raycaster="objects: .clickable;"-->
-                  <!--cursor="fuse:true; fuseTimeout:1000;"-->
-                  <!--position="0 0 -1"-->
-                  <!--scale="0.04 0.04 0.04"-->
-                  <!--event-emit__shaddow-enter-vr="triggerEvents:enter-vr; emitEvent:entervr; globalListener:true;"-->
-                  <!--event-emit__shaddow-exit-vr="triggerEvents:exit-vr; emitEvent:exitvr; globalListener:true;"-->
-                  <!--event-set__hide="_event: exitvr; visible: false;"-->
-                  <!--event-set__show="_event: entervr; visible: true;"-->
-                  <!--enable-disable="disableEvents:exitvr; enableEvents:entervr; toggleProps:cursor,raycaster; enabled:false"-->
-        <!--&gt;-->
-            <!--<a-ring color="#2A2A2A" theta-length="360" theta-start="90">-->
-            <!--</a-ring>-->
-            <!--<a-ring theta-length="0" theta-start="90"-->
-                    <!--material="shader:standard; emissive:#39C; emissiveIntensity:3; color:blue;"-->
-                    <!--event-emit__shaddow-gazefusing="triggerEvents:gazefusing; emitEvent:gazeFusing; globalListener:true;"-->
-                    <!--event-emit__shaddow-gazeend="triggerEvents:gazeend; emitEvent:gazeEnd; globalListener:true;"-->
-                    <!--animate__gazefusing="component: theta-length; duration:1000; triggerEvents:gazeFusing; interruptEvents:gazeEnd; type:number; from:0; to:360; easing:linear;"-->
-                    <!--event-set__gazeend="_event:gazeEnd; theta-length:0;"-->
-            <!--&gt;</a-ring>-->
-        <!--</a-entity>-->
-
-        <!--
         Used to figure out the position the menu should go to/from
         -->
         <a-plane id="menu-placeholder" visible="false" width="1" height="1" position="0 0 -1.1"></a-plane>
@@ -234,6 +207,7 @@
                  position="0 0.59 0"
                  class="clickable"
                  material="shader:flat; src:#menu-toggle-close; transparent:true;"
+                 cursor-listener
         ></a-plane>
 
         <a-text position="-0.34 0.59 0"
@@ -576,12 +550,6 @@
     <!--
     Photosphere background
     -->
-    <!--<a-videosphere id="bg" src="#greeting-background" color="#FFFFFF" material="shader:flat;"-->
-                   <!--switch-background="triggerEvents:menuchoice;"-->
-                   <!--animate__bg-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:bg-fadeout; from:#FFFFFF; to:#000000;"-->
-                   <!--animate__bg-fadein="component: color; duration:300; easing:linear; type:color; triggerEvents:bg-fadein; from:#000000; to:#FFFFFF;"-->
-    <!--&gt;</a-videosphere>-->
-
     <a-sky id="bg" src="#greeting-background" color="#FFFFFF" material="shader:flat;"
                    switch-background="triggerEvents:menuchoice;"
                    animate__bg-fadeout="component: color; duration:300; easing:linear; type:color; triggerEvents:bg-fadeout; from:#FFFFFF; to:#000000;"

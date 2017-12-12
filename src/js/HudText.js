@@ -46,10 +46,8 @@ module.exports = AFRAME.registerComponent('hud-text', {
         self.typeTextBound();
     },
 
-    //TODO fill out text
     typeText: function (event) {
         const self = this;
-        console.log(event);
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
         self.text = '^200 Welcome to the Met Office HPC VR Tour ^1000\n Open the menu to begin';

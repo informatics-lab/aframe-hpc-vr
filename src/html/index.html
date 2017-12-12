@@ -32,6 +32,8 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <!--<script type="text/javascript" src="https://rawgit.com/aframevr/aframe/82fad36/dist/aframe-master.min.js"></script>-->
+
 </head>
 <body>
 
@@ -207,7 +209,6 @@
                  position="0 0.59 0"
                  class="clickable"
                  material="shader:flat; src:#menu-toggle-close; transparent:true;"
-                 cursor-listener
         ></a-plane>
 
         <a-text position="-0.34 0.59 0"
@@ -227,7 +228,7 @@
         -->
         <a-entity class="menu-tier-1"
                   visible="true"
-                  position="-0.45 0 0.01"
+                  position="-0.45 0 0.11"
                   layout="type: line; margin:0.9"
                   event-emit__shaddow-menu-hq="triggerEvents:hq-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
                   event-emit__shaddow-menu-cb="triggerEvents:cb-menu; emitEvent:hide; globalListener:true; globalEmitter:false;"
@@ -253,7 +254,7 @@
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
 
-                     event-set__scaleup="_event:mouseenter; scale: 1.05 1.05 1;"
+                     event-set__scaleup="_event:mouseenter; scale: 1.02 1.02 1;"
                      event-set__scaledown="_event:mouseleave; scale: 1 1 1;"
 
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
@@ -287,7 +288,7 @@
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
 
-                     event-set__mouseenter="_event:mouseenter; scale: 1.05 1.05 1;"
+                     event-set__mouseenter="_event:mouseenter; scale: 1.02 1.02 1;"
                      event-set__mouseleave="_event:mouseleave; scale: 1 1 1;"
                      event-emit__gazefusing="triggerEvents:fusing; emitEvent:gazefusing; globalListener:false; globalEmitter:true;"
                      event-emit__gazeend="triggerEvents:click,mouseleave; emitEvent:gazeend; globalListener:false; globalEmitter:true;"

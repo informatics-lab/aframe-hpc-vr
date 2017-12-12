@@ -17,6 +17,26 @@ module.exports = AFRAME.registerComponent('menu', {
         self.toggleMenuBound = self.toggleMenu.bind(self);
         self.showDesktopMenuTabBound = self.showDesktopMenuTab.bind(self);
         self.hideDesktopMenuTabBound = self.hideDesktopMenuTab.bind(self);
+
+        let menuToggle = document.createElement('div');
+        menuToggle.setAttribute('id','menuToggle');
+
+        let menuToggleText = document.createElement('div');
+        menuToggleText.setAttribute('class','menuToggleText');
+        menuToggleText.innerText = 'OPEN MENU';
+        menuToggle.appendChild(menuToggleText);
+
+        menuToggle.addEventListener('mouseenter', ()=> {
+            self.el.sceneEl.emit('toggleMenuHover');
+        });
+
+        menuToggle.addEventListener('click', ()=> {
+            self.el.sceneEl.emit('toggleMenu');
+            self.el.sceneEl.emit('toggleMenuClick')
+        });
+        document.body.appendChild(menuToggle);
+
+        self.menuToggle = menuToggle;
     },
 
     update: function() {
@@ -58,30 +78,26 @@ module.exports = AFRAME.registerComponent('menu', {
 
     showDesktopMenuTab: function () {
         const self = this;
-        document.getElementById('menuToggle').setAttribute('style','display:block;')
+        self.menuToggle.setAttribute('style','display:block;')
     },
 
     hideDesktopMenuTab: function () {
         const self = this;
-        document.getElementById('menuToggle').setAttribute('style','display:none;')
+        self.menuToggle.setAttribute('style','display:none;')
     },
 
     addEventListeners: function () {
         const self = this;
         self.listener.addEventListener('toggleMenu', self.toggleMenuBound);
-        if (!AFRAME.utils.device.isMobile()) {
-            self.el.addEventListener('showMenu-positionStart', self.hideDesktopMenuTabBound);
-            self.el.addEventListener('hideMenu-positionEnd', self.showDesktopMenuTabBound);
-        }
+        self.el.addEventListener('showMenu-positionStart', self.hideDesktopMenuTabBound);
+        self.el.addEventListener('hideMenu-positionEnd', self.showDesktopMenuTabBound);
     },
 
     removeEventListeners: function () {
         const self = this;
         self.listener.removeEventListener('toggleMenu', self.toggleMenuBound);
-        if (!AFRAME.utils.device.isMobile()) {
-            self.el.removeEventListener('showMenu-positionStart', self.hideDesktopMenuTabBound);
-            self.el.removeEventListener('hideMenu-positionEnd', self.showDesktopMenuTabBound);
-        }
+        self.el.removeEventListener('showMenu-positionStart', self.hideDesktopMenuTabBound);
+        self.el.removeEventListener('hideMenu-positionEnd', self.showDesktopMenuTabBound);
     }
 
 });

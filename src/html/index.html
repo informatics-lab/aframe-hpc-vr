@@ -41,11 +41,12 @@
     <h1 class="title">High Performance Computer VR Tour</h1>
 </div>
 
-<a-scene menu-controller
-         hud-text="triggerEvents:menuchoice; hideEvents:menuopen; globalListener:true;"
+<a-scene hud-text="triggerEvents:menuchoice; hideEvents:menuopen; globalListener:true;"
          refreshable-raycaster="triggerEvents:refresh-menu; globalListener:true;"
          sound__hover="src:#hover; on:toggleMenuHover; volume:1;"
-         sound__click="src:#click; on:toggleMenuClick; volume:1;">
+         sound__click="src:#click; on:toggleMenuClick; volume:1;"
+         vr-mode-ui="false"
+>
 
     <!--
     All our scene assets

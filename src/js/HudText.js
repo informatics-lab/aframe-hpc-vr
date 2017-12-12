@@ -59,7 +59,7 @@ module.exports = AFRAME.registerComponent('hud-text', {
                     self.text = '^200 You are now outside Met Office HQ, home to two of our three HPC\'s. ^2000\n Open the menu to continue ';
                     break;
                 case '#hq-hpc':
-                    self.text = '^200 This is the Cray XC40 HPC, capable of 14 thousand  \n million million (10<sup>5</sup>) floating-point operations per second. ^2000\n Open the menu to continue';
+                    self.text = '^200 This is the Cray XC40 HPC, capable of 14 thousand  \n million million (14 x 10<sup>15</sup>) floating-point operations per second. ^2000\n Open the menu to continue';
                     break;
                 case '#hq-servers':
                     self.text = '^200 There are over 300 Linux servers running at any given moment, \n these package and serve data to and from the HPC. ^2000\n Open the menu to continue';

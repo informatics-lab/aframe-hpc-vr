@@ -1,7 +1,7 @@
 'use strict';
 
 // core library
-import 'aframe';
+// import 'aframe';
 
 // Component that sets a property on a given event
 // see: https://github.com/ngokevin/kframe/tree/master/components/event-set/

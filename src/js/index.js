@@ -24,6 +24,7 @@ import './EnableDisable';
 import './EventEmit';
 import './HudText';
 import './Menu';
+import './MobileFallback';
 import './RefreshableRaycaster';
 import './SoundController';
 import './SwitchBackground';

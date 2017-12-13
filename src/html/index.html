@@ -99,12 +99,15 @@
              src="assets/images/hq-storage.jpg"/>
 
 
-
-        <video id="hq-draw" webkit-playsinline playsinline muted
+        <video id="hq-draw" webkit-playsinline playsinline muted autoplay="false"
                src="assets/videos/hq-draw-512.mp4"/>
-        <video id="cb-draw" webkit-playsinline playsinline muted
+        <video id="cb-draw" webkit-playsinline playsinline muted autoplay="false"
                src="assets/videos/cb-draw-512.mp4"/>
 
+        <img id="cb-draw-image"
+             src="assets/textures/cb-draw-image.png"/>
+        <img id="hq-draw-image"
+             src="assets/textures/hq-draw-image.png"/>
 
         <audio id="hover" src="assets/sounds/menu-item-hover.wav"/>
         <audio id="menu" src="assets/sounds/menu-open-close.wav"/>
@@ -246,11 +249,12 @@
             <!--color="#9A9A9A"-->
             <!--event-set__colorup="_event:mouseenter; color:#FFFFFF;"-->
             <!--event-set__colordown="_event:mouseleave; color:#9A9A9A;"-->
-            <a-video id="hq-menu-link"
+            <a-plane id="hq-menu-link"
                      width="0.8"
                      height="0.8"
                      class="clickable"
-                     material="shader: flat; src: #hq-draw; transparent:true; opacity:0.75;"
+                     src="#hq-draw"
+                     material="shader: flat; transparent:true; opacity:0.75;"
 
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
@@ -272,7 +276,9 @@
                      event-set__hide="_event:hide; class:not-clickable;"
                      event-set__show="_event:show; class:clickable;"
 
-            ></a-video>
+                     mobile-fallback="src:#hq-draw-image"
+
+            ></a-plane>
 
             <!--
             Menu Tier 1 - CB link
@@ -280,11 +286,12 @@
             <!--color="#9A9A9A"-->
             <!--event-set__colorup="_event:mouseenter; color:#FFFFFF;"-->
             <!--event-set__colordown="_event:mouseleave; color:#9A9A9A;"-->
-            <a-video id="cb-menu-link"
+            <a-plane id="cb-menu-link"
                      width="0.8"
                      height="0.8"
                      class="clickable"
-                     material="shader: flat; src: #cb-draw; transparent:true; opacity:0.75;"
+                     src="#cb-draw";
+                     material="shader: flat; transparent:true; opacity:0.75;"
 
                      sound__hover="src:#hover; on:mouseenter; volume:1;"
                      sound__click="src:#click; on:click; volume:1;"
@@ -305,7 +312,9 @@
 
                      event-set__hide="_event:hide; class:not-clickable;"
                      event-set__show="_event:show; class:clickable;"
-            ></a-video>
+
+                     mobile-fallback="src:#cb-draw-image"
+            ></a-plane>
 
         </a-entity>
 

@@ -48,6 +48,7 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
     typeText: function (event) {
         const self = this;
+
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
         self.text = '^200Welcome to the Met Office HPC VR Tour ^1000\nOpen the menu to begin';
@@ -79,6 +80,7 @@ module.exports = AFRAME.registerComponent('hud-text', {
             }
         }
 
+        self.typed = null;
         self.typed = new Typed('#typingContainer .text', {
             strings: [self.text],
             typeSpeed: 30,
@@ -90,6 +92,8 @@ module.exports = AFRAME.registerComponent('hud-text', {
     hideText: function(event) {
         const self = this;
         self.typingContainer.setAttribute("style", "display:none;");
+        self.typingText.innerText = '';
+        self.typed = null;
     } ,
 
     addEventListeners: function () {

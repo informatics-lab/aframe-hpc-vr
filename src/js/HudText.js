@@ -13,10 +13,6 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
         self.typeTextBound = self.typeText.bind(self);
         self.hideTextBound = self.hideText.bind(self);
-    },
-
-    update: function () {
-        const self = this;
 
         self.listener = (self.data.globalListener) ? self.el.sceneEl : self.el;
 
@@ -39,6 +35,10 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
         self.typingContainer = typingContainer;
         self.typingText = typingText;
+    },
+
+    update: function () {
+        const self = this;
 
         self.removeEventListeners();
         self.addEventListeners();
@@ -52,7 +52,7 @@ module.exports = AFRAME.registerComponent('hud-text', {
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
         self.text = '^200Welcome to the Met Office HPC VR Tour ^1000\nOpen the menu to begin';
-        if(event) {
+        if(event && event.detail.src) {
             switch(event.detail.src) {
                 case '#hq-outside':
                     self.text = '^200You are now outside Met Office HQ, home to two of our three HPC\'s. ^2000\nOpen the menu to continue ';

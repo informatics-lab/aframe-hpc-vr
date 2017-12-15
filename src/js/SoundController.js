@@ -23,7 +23,6 @@ module.exports = AFRAME.registerComponent('sound-controller', {
 
     setVolume: function (event) {
         const self = this;
-        console.log(event);
         
         if(event) {
             switch(event.detail.src) {

@@ -117,6 +117,17 @@
     </a-assets>
 
     <!--
+    Camera for the scene
+    entity defined here so that hud elements can be nested within it thus attaching them to its immediate view.
+    -->
+    <a-camera id="camera" active="true" reverse-mouse-drag="true" wasd-controls-enabled="false">
+        <!--
+        Used to figure out the position the menu should go to/from
+        -->
+        <a-plane id="menu-placeholder" visible="false" width="1" height="1" position="0 0 -1.1"></a-plane>
+    </a-camera>
+
+    <!--
     Mouse Controls
     controls for non-VR mode
     -->
@@ -158,18 +169,7 @@
              material="shader:flat; transparent:true;"
     ></a-plane>
 
-    <!--
-    Camera for the scene
-    entity defined here so that hud elements can be nested within it thus attaching them to its immediate view.
-    -->
-    <!--reverse-mouse-drag="true"-->
-    <a-camera id="camera" active="true">
-        <!--
-        Used to figure out the position the menu should go to/from
-        -->
-        <a-plane id="menu-placeholder" visible="false" width="1" height="1" position="0 0 -1.1"></a-plane>
 
-    </a-camera>
 
 
     <!--
@@ -213,7 +213,6 @@
                  position="0 0.59 0"
                  class="clickable"
                  material="shader:flat; src:#menu-toggle-close; transparent:true;"
-                 cursor-listener
         ></a-plane>
 
         <a-text position="-0.34 0.59 0"
@@ -569,5 +568,14 @@
     ></a-sky>
 
 </a-scene>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60337429-7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-60337429-7');
+</script>
 </body>
 </html>

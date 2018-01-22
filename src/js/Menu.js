@@ -10,7 +10,8 @@ module.exports = AFRAME.registerComponent('menu', {
     init: function () {
         const self = this;
         self.open = false;
-        self.camera = document.querySelector('a-camera').object3D;
+        // self.camera = document.querySelector('a-camera').object3D;
+        self.camera = document.getElementById('camera').object3D;
         self.placeholder = document.getElementById('menu-placeholder');
         self.listener = (self.data.globalListener) ? self.el.sceneEl : self.el;
 

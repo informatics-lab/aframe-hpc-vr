@@ -13,10 +13,6 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
         self.typeTextBound = self.typeText.bind(self);
         self.hideTextBound = self.hideText.bind(self);
-    },
-
-    update: function () {
-        const self = this;
 
         self.listener = (self.data.globalListener) ? self.el.sceneEl : self.el;
 
@@ -39,6 +35,11 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
         self.typingContainer = typingContainer;
         self.typingText = typingText;
+        self.typed = null;
+    },
+
+    update: function () {
+        const self = this;
 
         self.removeEventListeners();
         self.addEventListeners();
@@ -48,6 +49,8 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
     typeText: function (event) {
         const self = this;
+
+        console.log('type text event', self);
 
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
@@ -80,7 +83,6 @@ module.exports = AFRAME.registerComponent('hud-text', {
             }
         }
 
-        self.typed = null;
         self.typed = new Typed('#typingContainer .text', {
             strings: [self.text],
             typeSpeed: 30,
@@ -92,8 +94,12 @@ module.exports = AFRAME.registerComponent('hud-text', {
     hideText: function(event) {
         const self = this;
         self.typingContainer.setAttribute("style", "display:none;");
-        self.typingText.innerText = '';
-        self.typed = null;
+        if(self.typed) {
+            if(!self.typed.typingComplete) {
+                self.typed.stop();
+            }
+            self.typed.destroy();
+        }
     } ,
 
     addEventListeners: function () {

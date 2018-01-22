@@ -51,23 +51,23 @@ module.exports = AFRAME.registerComponent('hud-text', {
 
         self.typingContainer.setAttribute("style", "display:block;");
         self.typingText.innerText = '';
-        self.text = '^200Welcome to the Met Office HPC VR Tour ^1000\nOpen the menu to begin';
+        self.text = '^200Welcome to the Met Office Supercomputer VR Tour ^1000\nOpen the menu to begin';
         if(event) {
             switch(event.detail.src) {
                 case '#hq-outside':
-                    self.text = '^200You are now outside Met Office HQ, home to two of our three HPC\'s. ^2000\nOpen the menu to continue ';
+                    self.text = '^200You are now outside of the Met Office HQ, home to two sections of the Met Office Supercomputer. ^2000\nOpen the menu to continue ';
                     break;
                 case '#hq-hpc':
                     self.text = '^200This is the Cray XC40 HPC, capable of 14 thousand million million (14 x 10<sup>15</sup>) floating-point operations per second. ^2000\nOpen the menu to continue';
                     break;
                 case '#hq-servers':
-                    self.text = '^200There are over 300 Linux servers running at any given moment, these package and serve data to and from the HPC. ^2000\nOpen the menu to continue';
+                    self.text = '^200There are over 300 Linux servers running at any given moment, these package and serve data to and from the Met Office Supercomputer. ^2000\nOpen the menu to continue';
                     break;
                 case '#hq-storage':
-                    self.text = '^200This is the HPC data storage archive, contained within are more numbers than there are grains of sand on Earth. ^2000\nOpen the menu to continue';
+                    self.text = '^200This is the Met Office Supercomputer data storage archive. Here we have the capability to store more than 1 bit of weather or climate research data for every grain of sand on the beaches of the world ^2000\nOpen the menu to continue';
                     break;
                 case '#cb-outside':
-                    self.text = '^200You’re now outside of the Met Office collaboration building, located at Exeter Science Park and home to our third HPC. ^2000\nOpen the menu to continue';
+                    self.text = '^200You’re now outside of the Met Office collaboration building, located at Exeter Science Park and home to our third section of the Met Office Supercomputer. ^2000\nOpen the menu to continue';
                     break;
                 case '#cb-hpc':
                     self.text = '^200This HPC is used primarily by the research community, and also helps to test new versions of the forecasting model. ^2000\nOpen the menu to continue';

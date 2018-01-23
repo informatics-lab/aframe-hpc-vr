@@ -67,16 +67,16 @@ module.exports = AFRAME.registerComponent('hud-text', {
                     self.text = '^200There are over 300 Linux servers running at any given moment, these package and serve data to and from the Met Office Supercomputer. ^2000\nOpen the menu to continue';
                     break;
                 case '#hq-storage':
-                    self.text = '^200This is the Met Office Supercomputer data storage archive. Here we have the capability to store more than 1 bit of weather or climate research data for every grain of sand on the beaches of the world ^2000\nOpen the menu to continue';
+                    self.text = '^200This is the Met Office Supercomputer data storage archive. Here we have the capability to store more than 1 bit of weather or climate research data for every grain of sand on the beaches of the world. ^2000\nOpen the menu to continue';
                     break;
                 case '#cb-outside':
                     self.text = '^200You’re now outside of the Met Office collaboration building, located at Exeter Science Park and home to our third section of the Met Office Supercomputer. ^2000\nOpen the menu to continue';
                     break;
                 case '#cb-hpc':
-                    self.text = '^200This HPC is used primarily by the research community, and also helps to test new versions of the forecasting model. ^2000\nOpen the menu to continue';
+                    self.text = '^200This section of the Met Office Supercomputer is used primarily by the research community, and also helps to test new versions of the forecasting model. ^2000\nOpen the menu to continue';
                     break;
                 case '#cb-servers':
-                    self.text = '^200This is the Cray Sonexion scale-out Lustre storage system, which acts as the hard-drive of the HPC. ^2000\nOpen the menu to continue';
+                    self.text = '^200This is the Cray Sonexion scale-out Lustre storage system, which acts as the hard-drive of the Met Office Supercomputer. ^2000\nOpen the menu to continue';
                     break;
                 default:
                     break;
